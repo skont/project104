@@ -494,8 +494,8 @@ Partial Public Class xcntlMainControl
         Dim view As GridView = sender
 
         If e.RowHandle = view.FocusedRowHandle Then
-            e.Appearance.ForeColor = getColor("white")
-            e.Appearance.BackColor = getColor("lightblue")
+            e.Appearance.ForeColor = getColor(App.Constants.FocusedForeColor)
+            e.Appearance.BackColor = getColor(App.Constants.FocusedBackColor)
             'e.Appearance.Font = New Font(e.Appearance.Font.FontFamily.Name, e.Appearance.Font.Size, System.Drawing.FontStyle.Bold)
 
             e.Appearance.Font = New Font("Calibri", 11, FontStyle.Bold)

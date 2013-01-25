@@ -37,6 +37,8 @@ Public Class clsApp
             .RegisteredTo = ""
             .UpdateFTP = ""
             .UpdateURL = ""
+            .FocusedForeColor = "lightblue"
+            .FocusedBackColor = "white"
 
             .RenameField = "RenameField"
             .SaveToXML = "SaveLayout (to xml)"
@@ -106,6 +108,9 @@ Public Class clsApp
         Public Property RegisteredTo As String
         Public Property UpdateFTP As String
         Public Property UpdateURL As String
+        Public Property FocusedForeColor As String
+        Public Property FocusedBackColor As String
+
 
         Public Property RenameField As String
         Public Property SaveToXML As String

@@ -79,6 +79,8 @@ Module modMainGeneralSubs
                 c = Color.Brown
             Case "orange"
                 c = Color.Orange
+            Case "lightyellow"
+                c = Color.LightYellow
 
         End Select
 

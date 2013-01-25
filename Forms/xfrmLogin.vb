@@ -173,6 +173,8 @@ Public Class xfrmLogin
             .RegisteredTo = initds.Tables("InitialValues").Rows(0)("f1")
             .UpdateFTP = initds.Tables("InitialValues").Rows(0)("f2")
             .UpdateURL = initds.Tables("InitialValues").Rows(0)("f3")
+            .FocusedForeColor = initds.Tables("InitialValues").Rows(0)("f4")
+            .FocusedBackColor = initds.Tables("InitialValues").Rows(0)("f5")
         End With
 
     End Sub
