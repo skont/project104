@@ -83,6 +83,11 @@ Module modMainGeneralSubs
                 c = Color.LightYellow
             Case "lightcoral"
                 c = Color.LightCoral
+            Case "black"
+                c = Color.Black
+            Case "white"
+                c = Color.White
+
 
         End Select
 
