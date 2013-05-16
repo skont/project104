@@ -503,7 +503,12 @@ Partial Public Class xcntlMainControl
         End If
 
         If view.Columns("CellColor") Is Nothing Then Return
-        Dim styling = view.GetRowCellValue(e.RowHandle, "CellColor")
+        Dim styling As String = ""
+
+        If Not view.IsNewItemRow(e.RowHandle) Then
+            styling = view.GetRowCellValue(e.RowHandle, "CellColor")
+        End If
+
         If styling = "" Then Return
 
         Dim styles = Split(styling, "|")
