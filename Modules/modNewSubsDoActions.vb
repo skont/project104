@@ -406,6 +406,9 @@ Module modNewSubsDoActions
                     Case "changecaption"
                         App.Objects.myMainForm.Text = tbl.Rows(i)("f0")
 
+                    Case "dotmatrixprint"
+                        DotMatrixPrint(tbl.Rows(i)("f0"))
+
                 End Select
 
             End If

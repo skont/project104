@@ -20,7 +20,7 @@ Public Class xfrmLogin
 
 
         CenterToScreen()
-        Text = App.Constants.applicationName & "(RunMode: " & My.Settings.RunMode & ")"
+        Text = My.Settings.Caption & "(RunMode: " & My.Settings.RunMode & ")"
         Icon = My.Resources.mlX
 
         KeyPreview = True
@@ -68,11 +68,18 @@ Public Class xfrmLogin
             chkSave.Text = .txtSaveCred
 
 
-            LabelControl1.Text = .applicationName
+            LabelControl1.Text = My.Settings.Caption
 
         End With
 
         LabelControl2.Text = GetSoftVersion()
+
+        If My.Settings.Caption = "<none>" Then
+            LayoutControlItem1.ContentVisible = False
+            LayoutControlItem10.ContentVisible = False
+            Text = "(RunMode: " & My.Settings.RunMode & ")"
+
+        End If
 
         cmbServer.EditValue = My.Settings.Server
         cmbDatabase.EditValue = My.Settings.Database

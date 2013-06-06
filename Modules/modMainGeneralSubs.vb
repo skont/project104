@@ -1,7 +1,15 @@
 ﻿Imports System.Xml
-
+Imports LPrinterTest
 
 Module modMainGeneralSubs
+    Public Sub DotMatrixPrint(ByVal PrintString As String)
+        Dim pr As New LPrinter
+        pr.PrinterName = "Generic / Text Only"
+        If (Not pr.Open("Test Page")) Then Return
+
+        pr.Print(PrintString)
+        pr.Close()
+    End Sub
 
     Public Function GetSoftVersion()
         Dim ver As String = String.Empty
@@ -23,7 +31,7 @@ Module modMainGeneralSubs
     End Function
 
 
-    
+
 
     Public Sub RegisterDlls()
         Cursor.Current = Cursors.WaitCursor

@@ -16,6 +16,7 @@ Public Class xfrmAxCrysytalViewer
         LabelControl1.Text = _rpt
         axcrv.ReportSource = CreateAxReport(_rpt, _prms)
         axcrv.ViewReport()
+
     End Sub
 
 End Class

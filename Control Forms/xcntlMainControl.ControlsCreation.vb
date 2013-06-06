@@ -158,6 +158,8 @@ Partial Public Class xcntlMainControl
                             End Using
                         End Using
                         pvg.RetrieveFields()
+
+
                         pvg.OptionsData.DataFieldUnboundExpressionMode = DataFieldUnboundExpressionMode.UseSummaryValues
 
                         GetPivotDetails(pvg)
@@ -169,6 +171,7 @@ Partial Public Class xcntlMainControl
                         'des: http://www.devexpress.com/Support/Center/p/Q140419.aspx
 
                         For Each f As PivotGridField In pvg.Fields
+                            f.Options.AllowRunTimeSummaryChange = True
                             f.Name = "pvf_" & f.FieldName
                         Next f
                         LoadLayoutFromDb(pvg)
@@ -867,10 +870,12 @@ Partial Public Class xcntlMainControl
                 With {.UnboundType = DevExpress.Data.UnboundColumnType.Object}
 
                 UnbFld.Options.ShowUnboundExpressionMenu = True
+                'UnbFld.Options.AllowRunTimeSummaryChange = True
 
                 Select Case typ.ToLower
                     Case "display"
                         UnbFld.SummaryDisplayType = CType(sumtype, PivotSummaryDisplayType)
+
                     Case "type"
                         UnbFld.SummaryType = CType(sumtype, PivotSummaryType)
 

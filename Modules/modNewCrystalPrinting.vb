@@ -16,6 +16,8 @@ Module modNewCrystalPrinting
         End If
         rpt.PrintToPrinter(1, False, 0, 0)
 
+        rpt.Dispose()
+
     End Sub
 
 

@@ -39,10 +39,16 @@ Public Class xfrmMainForm
 
         Icon = My.Resources.mlX
         Text = App.Constants.MainFormCaption 'My.Settings.Caption & " | " & My.Settings.Company & " - " & My.Settings.Database
+
         LabelControl1.Text = My.Settings.Caption
+        If My.Settings.Caption = "<none>" Then
+            PanelControl1.Hide()
+        End If
+
 
         CreateNavMenuFromDb()
         CreateTopMenuFromDb()
+
 
 
         WindowState = FormWindowState.Maximized

@@ -46,7 +46,7 @@ Partial Public Class xcntlMainControl
         Dim grid As GridControl = CType(sender, GridControl)
         Dim gv As GridView = grid.FocusedView
 
-        If (gv.IsEditing = True AndAlso (e.KeyCode = Keys.F9)) OrElse (gv.IsEditing = True AndAlso (e.KeyCode = Keys.F8)) Then
+        If (gv.IsEditing = True AndAlso (e.KeyCode = Keys.F8)) OrElse (gv.IsEditing = True AndAlso (e.KeyCode = Keys.F9)) OrElse (gv.IsEditing = True AndAlso (e.KeyCode = Keys.F10)) OrElse (gv.IsEditing = True AndAlso (e.KeyCode = Keys.F11)) OrElse (gv.IsEditing = True AndAlso (e.KeyCode = Keys.F12)) Then
 
             DoActions(Me.myGuid, grid.Name & "." & gv.Name & "." & gv.FocusedColumn.FieldName, e.KeyCode.ToString, gv:=gv)
         End If
@@ -498,7 +498,8 @@ Partial Public Class xcntlMainControl
             e.Appearance.BackColor = getColor(App.Constants.FocusedBackColor)
             'e.Appearance.Font = New Font(e.Appearance.Font.FontFamily.Name, e.Appearance.Font.Size, System.Drawing.FontStyle.Bold)
 
-            e.Appearance.Font = New Font("Calibri", 11, FontStyle.Bold)
+            'e.Appearance.Font = New Font("Calibri", 11, FontStyle.Bold)
+            'e.Appearance.Font = New Font(e.Appearance.Font, FontStyle.Bold)
 
         End If
 
@@ -518,7 +519,10 @@ Partial Public Class xcntlMainControl
             If e.Column.FieldName = cellstyles(0) Then
                 e.Appearance.ForeColor = getColor(cellstyles(1).ToLower)
                 e.Appearance.BackColor = getColor(cellstyles(2).ToLower)
-                If cellstyles(3).ToLower = "bold" Then e.Appearance.Font = New Font("Calibri", 9, FontStyle.Bold)
+                'If cellstyles(3).ToLower = "bold" Then e.Appearance.Font = New Font("Calibri", 11, FontStyle.Bold)
+
+                If cellstyles(3).ToLower = "bold" Then e.Appearance.Font = New Font(e.Appearance.Font, FontStyle.Bold)
+
             End If
 
         Next

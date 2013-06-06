@@ -150,7 +150,7 @@ Partial Public Class xcntlMainControl
 
     Private Sub ctr_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs)
 
-        If e.KeyCode = Keys.F9 OrElse e.KeyCode = Keys.F8 Then
+        If e.KeyCode = Keys.F8 OrElse e.KeyCode = Keys.F9 OrElse e.KeyCode = Keys.F10 OrElse e.KeyCode = Keys.F11 OrElse e.KeyCode = Keys.F12 Then
             DoActions(Me.myGuid, sender.name, e.KeyCode.ToString)
         End If
 

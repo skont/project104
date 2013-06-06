@@ -11,12 +11,12 @@ Module modMenus
     Dim con As String = GetSysCon()
 
 
-    Dim WithEvents bar As New Bar
+    'Dim WithEvents bar As New Bar
     Dim WithEvents barl0 As BarSubItem
     Dim WithEvents barl1 As BarSubItem
     Dim WithEvents barlb1 As BarButtonItem
 
-
+    Dim i As Integer = 0
 
     Sub CreateTopMenuFromDb()
 
@@ -33,7 +33,7 @@ Module modMenus
             App.Objects.myBarManager.Bars(0).Visible = False
 
 
-            com = "select * from xBarmnu"
+            com = "select MenuTree, Name, Caption, Icon from xBarmnu order by MenuTree"
 
             ds = New DataSet
             da = New SqlDataAdapter(com, con)
@@ -41,81 +41,151 @@ Module modMenus
             da.Dispose()
             ds.Dispose()
 
-
+            Dim bar As New Bar
             bar = App.Objects.myBarManager.Bars("Main menu")
             bar.OptionsBar.AllowQuickCustomization = False
 
-
-            For i = 0 To ds.Tables(0).Rows.Count - 1
+            i = 0
+            'For i = 0 To ds.Tables(0).Rows.Count - 1
+            While i < ds.Tables(0).Rows.Count - 1
 
                 If Len(ds.Tables(0).Rows(i)("MenuTree")) = 2 Then
 
                     barl0 = New BarSubItem
+                    barl0.Id = App.Objects.myBarManager.GetNewItemId()
                     barl0.Name = ds.Tables(0).Rows(i)("Name")
                     barl0.Caption = ds.Tables(0).Rows(i)("Caption")
                     barl0.Tag = ds.Tables(0).Rows(i)("MenuTree")
-                    barl0.Id = App.Objects.myBarManager.GetNewItemId()
                     barl0.Glyph = GetImageFromDB(ds.Tables(0).Rows(i)("Icon").ToString)
 
+                    i = i + 1
                     bar.AddItem(barl0)
 
-                ElseIf Len(ds.Tables(0).Rows(i)("MenuTree")) = 5 Then
+                ElseIf Len(ds.Tables(0).Rows(i)("MenuTree")) > 2 Then
+                    If checklevel(ds.Tables(0)) Then
 
-                    If i < ds.Tables(0).Rows.Count - 1 Then
-                        If Len(ds.Tables(0).Rows(i + 1)("MenuTree")) = 8 Then
-
-                            barl1 = New BarSubItem
-                            barl1.Caption = ds.Tables(0).Rows(i)("Caption").ToString
-                            barl1.Id = App.Objects.myBarManager.GetNewItemId()
-                            barl1.Glyph = GetImageFromDB(ds.Tables(0).Rows(i)("Icon").ToString)
-
-                            barl0.AddItem(barl1)
-
-
-                        Else
-
-
-                            barlb1 = New BarButtonItem
-                            barlb1.Name = ds.Tables(0).Rows(i)("Name")
-                            barlb1.Caption = ds.Tables(0).Rows(i)("Caption")
-                            barlb1.Tag = ds.Tables(0).Rows(i)("MenuTree")
-                            barlb1.Id = App.Objects.myBarManager.GetNewItemId()
-                            barlb1.Glyph = GetImageFromDB(ds.Tables(0).Rows(i)("Icon").ToString)
-                            barl0.AddItem(barlb1)
-
-                            AddHandler barlb1.ItemClick, AddressOf BarButtonItem_ItemClick
-
-                        End If
-
-                    End If
-
-
-                ElseIf Len(ds.Tables(0).Rows(i)("MenuTree")) = 8 Then
-
-                    Dim barl2 As New BarButtonItem
-                    If ds.Tables(0).Rows(i)("caption") = "" Then
+                        barl0.AddItem(addBarSubItem(ds.Tables(0)))
 
                     Else
-
-                        barl2.Name = ds.Tables(0).Rows(i)("Name")
-                        barl2.Caption = ds.Tables(0).Rows(i)("Caption")
-                        barl2.Tag = ds.Tables(0).Rows(i)("MenuTree")
-                        barl2.Id = App.Objects.myBarManager.GetNewItemId()
-                        barl2.Glyph = GetImageFromDB(ds.Tables(0).Rows(i)("Icon").ToString)
-                        barl1.AddItem(barl2)
-                        AddHandler barl2.ItemClick, AddressOf BarButtonItem_ItemClick
+                        barl0.AddItem(addBarButtonItem(ds.Tables(0)))
 
                     End If
-
 
                 End If
 
-            Next
+            End While
 
         End If
 
+        i = 0
+
+        'ElseIf Len(ds.Tables(0).Rows(i)("MenuTree")) = 5 Then
+
+        '    If i < ds.Tables(0).Rows.Count - 1 Then
+        '        If Len(ds.Tables(0).Rows(i + 1)("MenuTree")) = 8 Then
+
+        '            barl1 = New BarSubItem
+        '            barl1.Caption = ds.Tables(0).Rows(i)("Caption").ToString
+        '            barl1.Id = App.Objects.myBarManager.GetNewItemId()
+        '            barl1.Glyph = GetImageFromDB(ds.Tables(0).Rows(i)("Icon").ToString)
+
+        '            barl0.AddItem(barl1)
+
+        '        Else
+
+
+        '            barlb1 = New BarButtonItem
+        '            barlb1.Name = ds.Tables(0).Rows(i)("Name")
+        '            barlb1.Caption = ds.Tables(0).Rows(i)("Caption")
+        '            barlb1.Tag = ds.Tables(0).Rows(i)("MenuTree")
+        '            barlb1.Id = App.Objects.myBarManager.GetNewItemId()
+        '            barlb1.Glyph = GetImageFromDB(ds.Tables(0).Rows(i)("Icon").ToString)
+
+        '            barl0.AddItem(barlb1)
+
+        '            AddHandler barlb1.ItemClick, AddressOf BarButtonItem_ItemClick
+
+        '        End If
+
+        '    End If
+
+
+        'ElseIf Len(ds.Tables(0).Rows(i)("MenuTree")) = 8 Then
+
+        '    Dim barl2 As New BarButtonItem
+        '    If ds.Tables(0).Rows(i)("caption") = "" Then
+
+        '    Else
+
+        '        barl2.Name = ds.Tables(0).Rows(i)("Name")
+        '        barl2.Caption = ds.Tables(0).Rows(i)("Caption")
+        '        barl2.Tag = ds.Tables(0).Rows(i)("MenuTree")
+        '        barl2.Id = App.Objects.myBarManager.GetNewItemId()
+        '        barl2.Glyph = GetImageFromDB(ds.Tables(0).Rows(i)("Icon").ToString)
+        '        barl1.AddItem(barl2)
+        '        AddHandler barl2.ItemClick, AddressOf BarButtonItem_ItemClick
+
+        '    End If
+
+
+        'End If
+
+        'Next
+
+        'End If
+
+
+
     End Sub
 
+
+    Private Function addBarSubItem(ByVal tbl As DataTable) As BarSubItem
+        Dim bsi As New BarSubItem
+
+        If checklevel(tbl) Then
+            bsi.AddItem(addBarSubItem(tbl))
+        Else
+            bsi.AddItem(addBarButtonItem(tbl))
+        End If
+
+        bsi.Id = App.Objects.myBarManager.GetNewItemId()
+        bsi.Name = tbl.Rows(i)("Name")
+        bsi.Caption = tbl.Rows(i)("Caption").ToString
+        bsi.Glyph = GetImageFromDB(tbl.Rows(i)("Icon").ToString)
+
+        i = i + 1
+        Return bsi
+    End Function
+
+    Private Function addBarButtonItem(ByVal tbl As DataTable) As BarButtonItem
+        Dim bbi As New BarButtonItem
+
+
+
+        bbi.Id = App.Objects.myBarManager.GetNewItemId()
+        bbi.Name = tbl.Rows(i)("Name")
+        bbi.Caption = tbl.Rows(i)("Caption")
+        bbi.Tag = tbl.Rows(i)("MenuTree")
+        bbi.Glyph = GetImageFromDB(tbl.Rows(i)("Icon").ToString)
+
+        AddHandler bbi.ItemClick, AddressOf BarButtonItem_ItemClick
+
+        i = i + 1
+        Return bbi
+    End Function
+
+    Private Function checklevel(ByVal tbl As DataTable) As Boolean
+        Dim res As Boolean = False
+
+        Dim current As String = tbl.Rows(i)("MenuTree")
+        Dim following As String = tbl.Rows(i + 1)("MenuTree")
+
+        If following.StartsWith(current) Then
+            res = True
+        End If
+
+        Return res
+    End Function
 
     Private Sub BarButtonItem_ItemClick(ByVal sender As Object, ByVal e As ItemClickEventArgs)
         Dim subMenu As BarSubItem = TryCast(e.Item, BarSubItem)
@@ -161,6 +231,8 @@ Module modMenus
 
             Case "mnuRelogin"
 
+            Case "mnuDotMatrixTest"
+                DotMatrixPrint("Hello World\r\n")
 
             Case "mnuShowNavBar"
                 Try
