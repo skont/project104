@@ -162,7 +162,8 @@ Module modMenus
 
             Case "mnuRelogin"
 
-
+            Case "mnuDotMatrixTest"
+                DotMatrixPrint("Hello World\r\n")
             Case "mnuShowNavBar"
                 Try
                     App.Objects.myDockManager.HiddenPanels.Item(0).Show()

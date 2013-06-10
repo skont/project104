@@ -2,9 +2,9 @@
 Imports LPrinterTest
 
 Module modMainGeneralSubs
-    Public Sub DotMatrixPrint(ByVal PrintString As String)
+    Public Sub DotMatrixPrint(ByVal PrintString As String, Optional ByVal PrinterName As String = "Generic / Text Only")
         Dim pr As New LPrinter
-        pr.PrinterName = "Generic / Text Only"
+        pr.PrinterName = PrinterName '"Generic / Text Only"
         If (Not pr.Open("Test Page")) Then Return
 
         pr.Print(PrintString)

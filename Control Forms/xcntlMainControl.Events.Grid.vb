@@ -46,7 +46,7 @@ Partial Public Class xcntlMainControl
         Dim grid As GridControl = CType(sender, GridControl)
         Dim gv As GridView = grid.FocusedView
 
-        If (gv.IsEditing = True AndAlso (e.KeyCode = Keys.F8)) OrElse (gv.IsEditing = True AndAlso (e.KeyCode = Keys.F9)) OrElse (gv.IsEditing = True AndAlso (e.KeyCode = Keys.F10)) OrElse (gv.IsEditing = True AndAlso (e.KeyCode = Keys.F11)) OrElse (gv.IsEditing = True AndAlso (e.KeyCode = Keys.F12)) Then
+        If (gv.IsEditing = True AndAlso (e.KeyCode = Keys.F8)) OrElse (gv.IsEditing = True AndAlso (e.KeyCode = Keys.F9)) OrElse (gv.IsEditing = True AndAlso (e.KeyCode = Keys.F10)) OrElse (gv.IsEditing = True AndAlso (e.KeyCode = Keys.F11)) Then
 
             DoActions(Me.myGuid, grid.Name & "." & gv.Name & "." & gv.FocusedColumn.FieldName, e.KeyCode.ToString, gv:=gv)
         End If

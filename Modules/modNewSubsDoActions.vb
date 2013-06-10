@@ -407,7 +407,12 @@ Module modNewSubsDoActions
                         App.Objects.myMainForm.Text = tbl.Rows(i)("f0")
 
                     Case "dotmatrixprint"
-                        DotMatrixPrint(tbl.Rows(i)("f0"))
+                        DotMatrixPrint(tbl.Rows(i)("f0"), tbl.Rows(i)("f1"))
+
+                    Case "sendkeys"
+                        SendKeys.Send(tbl.Rows(i)("f0"))
+                    Case "sendkeyswait"
+                        SendKeys.SendWait(tbl.Rows(i)("f0"))
 
                 End Select
 
