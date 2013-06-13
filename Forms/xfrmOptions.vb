@@ -204,6 +204,7 @@ Public Class xfrmOptions
 
             If Not info.UpdateAvailable Then
                 Message("msgNoUpd")
+                'MsgBox("no upd")
                 Return
             End If
 
