@@ -64,19 +64,20 @@ Module modMenus
 
                 If Len(currentName) = 2 Then
                     Dim subitem As BarSubItem = New BarSubItem(App.Objects.myBarManager, caption)
-                    subitem.Name = name
+                    subitem.Name = currentName
                     subitem.Id = CInt(ds.Tables(0).Rows(i)("aa"))
                     bar.AddItem(subitem)
 
                 ElseIf nextName.StartsWith(currentName) Then
                     Dim subitem As BarSubItem = New BarSubItem(App.Objects.myBarManager, caption)
-                    subitem.Name = name
+                    subitem.Name = currentName
                     subitem.Id = CInt(ds.Tables(0).Rows(i)("aa"))
 
                     _getParent(App.Objects.myBarManager, currentName, ds.Tables(0)).AddItem(subitem)
                 Else
                     Dim subButton As BarButtonItem = New BarButtonItem(App.Objects.myBarManager, caption)
-                    subButton.Name = name
+                    subButton.Name = currentName
+                    subButton.Tag = currentName
                     subButton.Id = ds.Tables(0).Rows(i)("aa")
 
                     AddHandler subButton.ItemClick, AddressOf BarButtonItem_ItemClick
