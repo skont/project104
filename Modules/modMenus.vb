@@ -60,29 +60,25 @@ Module modMenus
                 Dim caption As String = ds.Tables(0).Rows(i)("Caption").ToString
                 Dim name As String = ds.Tables(0).Rows(i)("Name").ToString
 
-                'Console.WriteLine(currentName, nextName)
 
                 If Len(currentName) = 2 Then
                     Dim subitem As BarSubItem = New BarSubItem(App.Objects.myBarManager, caption)
-                    subitem.Name = currentName
                     subitem.Id = CInt(ds.Tables(0).Rows(i)("aa"))
                     bar.AddItem(subitem)
 
                 ElseIf nextName.StartsWith(currentName) Then
                     Dim subitem As BarSubItem = New BarSubItem(App.Objects.myBarManager, caption)
-                    subitem.Name = currentName
                     subitem.Id = CInt(ds.Tables(0).Rows(i)("aa"))
 
                     _getParent(App.Objects.myBarManager, currentName, ds.Tables(0)).AddItem(subitem)
                 Else
                     Dim subButton As BarButtonItem = New BarButtonItem(App.Objects.myBarManager, caption)
-                    subButton.Name = currentName
+                    subButton.Name = name
                     subButton.Tag = currentName
-                    subButton.Id = ds.Tables(0).Rows(i)("aa")
+                    subButton.Id = CInt(ds.Tables(0).Rows(i)("aa"))
 
                     AddHandler subButton.ItemClick, AddressOf BarButtonItem_ItemClick
                     _getParent(App.Objects.myBarManager, currentName, ds.Tables(0)).AddItem(subButton)
-
 
                 End If
             Next
@@ -93,10 +89,11 @@ Module modMenus
 
 
     Private Sub BarButtonItem_ItemClick(ByVal sender As Object, ByVal e As ItemClickEventArgs)
-        Dim subMenu As BarSubItem = TryCast(e.Item, BarSubItem)
-        If Not subMenu Is Nothing Then Return
 
+        ' Einai lathos edw giati tsekarw sto case me to Name kai meta stelnw to tag ws parametro.
+        ' Kalo einai na ftiaxtei alla u;elei allagi kai sti vasi
         Select Case e.Item.Name
+
             Case "mnuEnd"
 
                 If Message("msgQuit") = "Yes" Then
@@ -113,6 +110,7 @@ Module modMenus
 
             Case "mnuAppPath"
                 Process.Start("explorer.exe", Application.StartupPath)
+                WriteLogEntry(e.Item.Name + "-" + e.Item.Tag)
 
             Case "mnuAbout"
                 Message("msgGeneral", "Product Version: " & GetSoftVersion() & vbNewLine & "Registered to: " & App.Constants.RegisteredTo)
@@ -134,10 +132,6 @@ Module modMenus
                     op.ShowDialog()
                 End Using
 
-            Case "mnuRelogin"
-
-            Case "mnuDotMatrixTest"
-                DotMatrixPrint("Hello World\r\n")
             Case "mnuShowNavBar"
                 Try
                     App.Objects.myDockManager.HiddenPanels.Item(0).Show()
