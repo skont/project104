@@ -389,6 +389,9 @@ Module modNewSubsDoActions
                     Case "controlreadonly"
                         ControlReadOnly(frm, tbl.Rows(i)("f0"), tbl.Rows(i)("f1"))
 
+                    Case "buttontoggle"
+                        ButtonToggle(frm, tbl.Rows(i)("f0"), tbl.Rows(i)("f1"))
+
                     Case "gridnewrowpossition"
                         GridNewRowPossition(frm, tbl.Rows(i)("f0"), tbl.Rows(i)("f1"))
 

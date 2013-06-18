@@ -1324,6 +1324,15 @@ Module modNewSubs
 
     End Sub
 
+    Public Sub ButtonToggle(ByVal f As xcntlMainControl, ByVal cnt As String, ByVal value As String)
+        Dim btn As SimpleButton = f.Controls.Find(cnt, True)(0)
 
+        If value = "true" Then
+            btn.Enabled = True
+        Else
+            btn.Enabled = False
+        End If
+
+    End Sub
 
 End Module
