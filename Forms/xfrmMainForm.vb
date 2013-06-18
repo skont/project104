@@ -41,7 +41,7 @@ Public Class xfrmMainForm
         Text = App.Constants.MainFormCaption 'My.Settings.Caption & " | " & My.Settings.Company & " - " & My.Settings.Database
 
         LabelControl1.Text = My.Settings.Caption
-        If My.Settings.Caption = "<none>" Then
+        If Not My.Settings.ShowCaptionMainForm Then
             PanelControl1.Hide()
         End If
 

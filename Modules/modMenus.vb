@@ -113,10 +113,10 @@ Module modMenus
                 WriteLogEntry(e.Item.Name + "-" + e.Item.Tag)
 
             Case "mnuAbout"
-                Message("msgGeneral", "Product Version: " & GetSoftVersion() & vbNewLine & "Registered to: " & App.Constants.RegisteredTo)
+                Message("msgGeneral", "Product Name: " & My.Settings.Caption & vbNewLine & "Product Version: " & GetSoftVersion() & vbNewLine & "Registered to: " & App.Constants.RegisteredTo)
 
             Case "mnuViewLog"
-                Dim f As String = Application.StartupPath & "\MediaFrame.log"
+                Dim f As String = Application.StartupPath & "\" & My.Settings.Caption & ".log"
 
                 If IO.File.Exists(f) Then
                     Try

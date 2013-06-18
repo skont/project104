@@ -74,7 +74,7 @@ Public Class xfrmLogin
 
         LabelControl2.Text = GetSoftVersion()
 
-        If My.Settings.Caption = "<none>" Then
+        If Not My.Settings.ShowCaptionLogin Then
             LayoutControlItem1.ContentVisible = False
             LayoutControlItem10.ContentVisible = False
             Text = "(RunMode: " & My.Settings.RunMode & ")"
@@ -193,8 +193,8 @@ Public Class xfrmLogin
         App.UserProperties.CanSaveLayout = False
 
 
-        If File.Exists(String.Format("{0}\{1}", Application.StartupPath, My.Settings.LogFile)) Then
-            File.Delete(String.Format("{0}\{1}", Application.StartupPath, My.Settings.LogFile))
+        If File.Exists(String.Format("{0}\{1}", Application.StartupPath, My.Settings.Caption & ".log")) Then
+            File.Delete(String.Format("{0}\{1}", Application.StartupPath, My.Settings.Caption & ".log"))
         End If
 
         If My.Settings.ServerList.Contains(cmbServer.EditValue) Then

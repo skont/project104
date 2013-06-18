@@ -21,7 +21,7 @@ Imports System.Globalization
 Module modNewSubs
 
     Public Sub WriteLogEntry(ByVal msg As String)
-        Using sw As New StreamWriter(String.Format("{0}\{1}", Application.StartupPath, My.Settings.LogFile), True)
+        Using sw As New StreamWriter(String.Format("{0}\{1}", Application.StartupPath, My.Settings.Caption & ".log"), True)
             Dim dateValue As Date = Now
             sw.WriteLine(String.Format("/* {0} */ {1}", dateValue.ToString("MM/dd/yyyy hh:mm:ss.fff tt"), msg))
             'sw.WriteLine(String.Format("/* {0} {1} */ {2}", Now.ToShortDateString, Now.ToShortTimeString, msg))
