@@ -20,7 +20,7 @@ Public Class xfrmLogin
 
 
         CenterToScreen()
-        Text = My.Settings.Caption & "(RunMode: " & My.Settings.RunMode & ")"
+        Text = String.Format("{0}(RunMode: {1})", My.Settings.Caption, My.Settings.RunMode)
         Icon = My.Resources.mlX
 
         KeyPreview = True
@@ -77,7 +77,7 @@ Public Class xfrmLogin
         If Not My.Settings.ShowCaptionLogin Then
             LayoutControlItem1.ContentVisible = False
             LayoutControlItem10.ContentVisible = False
-            Text = "(RunMode: " & My.Settings.RunMode & ")"
+            Text = String.Format("(RunMode: {0})", My.Settings.RunMode)
 
         End If
 
@@ -102,36 +102,21 @@ Public Class xfrmLogin
 
         If e.Modifiers.ToString = "Control" AndAlso e.KeyCode <> Keys.ControlKey Then
             Dim keycomb = String.Format("{0} + {1}", e.Modifiers, e.KeyCode)
-            'If keycomb = "Control + G" Then
-            'If MsgBox("Go to config ?", MsgBoxStyle.YesNo, "Configuration") = MsgBoxResult.Yes Then
-            '    Dim f As String = Application.StartupPath & "\MediaFrame.exe.config"
-
-            '    If IO.File.Exists(f) Then
-            '        Try
-            '            Process.Start("notepad++.exe", f)
-            '        Catch ex As Exception
-            '            WriteLogEntry("notepad++ not installed")
-            '            Process.Start("notepad.exe", f)
-            '        End Try
-            '    End If
-
-            '    Application.Exit()
-            'End If
-            'End If
+         
             If keycomb = "Control + D" Then
-                If MsgBox("RunMode is: " & My.Settings.RunMode & " Change It to Default ?", MsgBoxStyle.YesNo, "RunMode Configuration") = MsgBoxResult.Yes Then
+                If MsgBox(String.Format("RunMode is: {0} Change It to Default ?", My.Settings.RunMode), MsgBoxStyle.YesNo, "RunMode Configuration") = MsgBoxResult.Yes Then
                     My.Settings.RunMode = "Default"
                     My.Settings.Save()
                     Application.Restart()
                 End If
             ElseIf keycomb = "Control + R" Then
-                If MsgBox("RunMode is: " & My.Settings.RunMode & " Change It to Remote ?", MsgBoxStyle.YesNo, "RunMode Configuration") = MsgBoxResult.Yes Then
+                If MsgBox(String.Format("RunMode is: {0} Change It to Remote ?", My.Settings.RunMode), MsgBoxStyle.YesNo, "RunMode Configuration") = MsgBoxResult.Yes Then
                     My.Settings.RunMode = "Remote"
                     My.Settings.Save()
                     Application.Restart()
                 End If
             ElseIf keycomb = "Control + M" Then
-                If MsgBox("RunMode is: " & My.Settings.RunMode & " Change It to Mobile ?", MsgBoxStyle.YesNo, "RunMode Configuration") = MsgBoxResult.Yes Then
+                If MsgBox(String.Format("RunMode is: {0} Change It to Mobile ?", My.Settings.RunMode), MsgBoxStyle.YesNo, "RunMode Configuration") = MsgBoxResult.Yes Then
                     My.Settings.RunMode = "Mobile"
                     My.Settings.Save()
                     Application.Restart()
@@ -180,11 +165,25 @@ Public Class xfrmLogin
             .RegisteredTo = initds.Tables("InitialValues").Rows(0)("f1")
             .UpdateFTP = initds.Tables("InitialValues").Rows(0)("f2")
             .UpdateURL = initds.Tables("InitialValues").Rows(0)("f3")
-            .FocusedForeColor = initds.Tables("InitialValues").Rows(0)("f4")
-            .FocusedBackColor = initds.Tables("InitialValues").Rows(0)("f5")
+
+            'Grid Focused Row
+            Dim init As String = "black;white;calibri;11;bold"
+            If initds.Tables("InitialValues").Rows(0)("f4") <> "" Then
+                init = initds.Tables("InitialValues").Rows(0)("f4")
+            End If
+
+            Dim colors As String() = Split(init, ";")
+
+            .FocusedForeColor = colors(0)
+            .FocusedBackColor = colors(1)
+            .FocusedFontFamily = colors(2)
+            .FocusedFontSize = CInt(colors(3))
+            .FocusedFontStyle = colors(4)
+
         End With
 
     End Sub
+
 
     Private Sub login()
 

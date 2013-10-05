@@ -48,9 +48,9 @@ Module modMainGeneralSubs
         For i = 0 To 1
             Try
 
-                Process.Start("regsvr32.exe ", """" & spath(i) & """")
+                Process.Start("regsvr32.exe ", String.Format("""{0}""", spath(i)))
             Catch ex As Exception
-                WriteLogEntry("The following DLL did not register." & vbLf & spath(i) & vbLf & " Reason:" & vbLf & ex.Message)
+                WriteLogEntry(String.Format("The following DLL did not register.{0}{1}{0} Reason:{0}{2}", vbLf, spath(i), ex.Message))
             End Try
 
         Next
@@ -96,10 +96,28 @@ Module modMainGeneralSubs
             Case "white"
                 c = Color.White
 
-
         End Select
 
         Return c
+    End Function
+
+    Public Function getFontStyle(ByVal fontstyle As String) As FontStyle
+        Dim f As FontStyle
+
+        Select Case fontstyle.ToLower
+            Case "bold"
+                f = Drawing.FontStyle.Bold
+            Case "italic"
+                f = Drawing.FontStyle.Italic
+            Case "underline"
+                f = Drawing.FontStyle.Italic
+            Case "strikeout"
+                f = Drawing.FontStyle.Strikeout
+            Case Else
+                f = Drawing.FontStyle.Regular
+        End Select
+
+        Return f
     End Function
 
 

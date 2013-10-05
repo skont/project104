@@ -770,19 +770,6 @@ Partial Public Class xcntlMainControl
 
 
 
-
-        'With v.OptionsFind
-        '    .AllowFindPanel = True
-        '    .ClearFindOnClose = True
-        '    .FindMode = FindMode.Always
-        '    .FindDelay = 1
-        '    .FindFilterColumns = "*"
-        '    .HighlightFindResults = True
-
-        'End With
-
-
-
         If ExpandGroupRows = True Then
             v.ExpandAllGroups()
         End If
@@ -831,21 +818,7 @@ Partial Public Class xcntlMainControl
         v.OptionsMenu.ShowGroupSummaryEditorItem = True
 
 
-        Dim ff As System.Drawing.FontStyle
-        Select Case FontDecoration.ToLower
-            Case "bold"
-                ff = System.Drawing.FontStyle.Bold
-            Case "italics"
-                ff = System.Drawing.FontStyle.Italic
-            Case "strikeout"
-                ff = System.Drawing.FontStyle.Strikeout
-            Case "underline"
-                ff = System.Drawing.FontStyle.Underline
-            Case Else
-                ff = System.Drawing.FontStyle.Regular
-
-        End Select
-        v.Appearance.Row.Font = New Font(FontFamily, FontSize, ff)
+        v.Appearance.Row.Font = New Font(FontFamily, FontSize, getFontStyle(FontDecoration.ToLower))
 
         GetViewColumnProperties(v)
 

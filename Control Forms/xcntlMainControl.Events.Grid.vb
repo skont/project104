@@ -81,26 +81,6 @@ Partial Public Class xcntlMainControl
 
 
     '--------- GRIDVIEW EVENTS
-    Private Sub gv_RowStyle(ByVal sender As Object, ByVal e As DevExpress.XtraGrid.Views.Grid.RowStyleEventArgs)
-
-        Dim View As GridView = sender
-
-        If View.Columns("RowColor") Is Nothing Then Return
-
-        If (e.RowHandle >= 0) AndAlso (e.RowHandle <> GridControl.NewItemRowHandle) Then
-            Dim colour() As String = Split(View.GetRowCellDisplayText(e.RowHandle, View.Columns("RowColor")), ";")
-
-            e.Appearance.ForeColor = getColor(colour(0).ToLower)
-
-            If UBound(colour) > 0 Then
-                e.Appearance.BackColor = getColor(colour(1).ToLower)
-
-            End If
-        End If
-
-
-
-    End Sub
 
     
 
@@ -491,46 +471,67 @@ Partial Public Class xcntlMainControl
     End Sub
 
     Private Sub gv_RowCellStyle(ByVal sender As Object, ByVal e As DevExpress.XtraGrid.Views.Grid.RowCellStyleEventArgs)
-        Dim view As GridView = sender
 
+        'Creates Focused Row color based on init values (in up1init)
+        Dim view As GridView = sender
         If e.RowHandle = view.FocusedRowHandle Then
             e.Appearance.ForeColor = getColor(App.Constants.FocusedForeColor)
             e.Appearance.BackColor = getColor(App.Constants.FocusedBackColor)
-            'e.Appearance.Font = New Font(e.Appearance.Font.FontFamily.Name, e.Appearance.Font.Size, System.Drawing.FontStyle.Bold)
-
-            'e.Appearance.Font = New Font("Calibri", 11, FontStyle.Bold)
-            'e.Appearance.Font = New Font(e.Appearance.Font, FontStyle.Bold)
+            e.Appearance.Font = New Font(App.Constants.FocusedFontFamily, App.Constants.FocusedFontSize, getFontStyle(App.Constants.FocusedFontStyle))
 
         End If
 
+
+        'Creates CellColor based on Cellcolor value in table
         If view.Columns("CellColor") Is Nothing Then Return
-        Dim styling As String = ""
+        Dim styling As String
 
         If Not view.IsNewItemRow(e.RowHandle) Then
             styling = view.GetRowCellValue(e.RowHandle, "CellColor")
+        Else
+            styling = ""
         End If
-
         If styling = "" Then Return
 
-        Dim styles = Split(styling, "|")
-        For i = 0 To UBound(styles)
-            Dim cellstyles = Split(styles(i), ";")
+        Dim cs As String() = Split(styling, "|")
 
-            If e.Column.FieldName = cellstyles(0) Then
-                e.Appearance.ForeColor = getColor(cellstyles(1).ToLower)
-                e.Appearance.BackColor = getColor(cellstyles(2).ToLower)
-                'If cellstyles(3).ToLower = "bold" Then e.Appearance.Font = New Font("Calibri", 11, FontStyle.Bold)
+        Dim cellstyles = Split(cs(1), ";")
 
-                If cellstyles(3).ToLower = "bold" Then e.Appearance.Font = New Font(e.Appearance.Font, FontStyle.Bold)
+        If e.Column.FieldName = cs(0) Then
+            e.Appearance.ForeColor = getColor(cellstyles(0).ToLower)
+            e.Appearance.BackColor = getColor(cellstyles(1).ToLower)
+            e.Appearance.Font = New Font(cellstyles(2).ToLower, CInt(cellstyles(3)), getFontStyle(cellstyles(4).ToLower))
 
-            End If
-
-        Next
+        End If
 
 
-       
 
     End Sub
+
+    Private Sub gv_RowStyle(ByVal sender As Object, ByVal e As DevExpress.XtraGrid.Views.Grid.RowStyleEventArgs)
+
+        ' Creates rowcolor based on rowcolor values in table
+        Dim View As GridView = sender
+        Dim rowcolor As String
+
+        If View.Columns("RowColor") Is Nothing OrElse View.GetRowCellDisplayText(e.RowHandle, View.Columns("RowColor")) = "" Then
+            rowcolor = "black;white;calibri;11;regular"
+        Else
+            rowcolor = View.GetRowCellDisplayText(e.RowHandle, View.Columns("RowColor"))
+        End If
+
+        If (e.RowHandle >= 0) AndAlso (e.RowHandle <> GridControl.NewItemRowHandle) Then
+            Dim colour As String() = Split(rowcolor, ";")
+
+            e.Appearance.ForeColor = getColor(colour(0).ToLower)
+            e.Appearance.BackColor = getColor(colour(1).ToLower)
+            e.Appearance.Font = New Font(colour(2).ToLower, CInt(colour(3)), getFontStyle(colour(4).ToLower))
+        End If
+
+
+
+    End Sub
+
 
     Private Sub gv_FilterEditorCreated(ByVal sender As Object, ByVal e As DevExpress.XtraGrid.Views.Base.FilterControlEventArgs)
 
@@ -640,23 +641,5 @@ Partial Public Class xcntlMainControl
         Return res
     End Function
 
-
-    'Private Function GetRefreshFields(ByVal viewname As String, ByVal fieldname As String) As Boolean
-    '    Dim res As Boolean = False
-    '    Try
-
-    '        Dim criteria As String = String.Format("ctrlName='{0}'", viewname)
-    '        Dim RefreshFlds() As DataRow = objectDetailsPropertiesTable.Select(criteria)
-
-    '        For i = 0 To UBound(RefreshFlds)
-    '            If RefreshFlds(0).Item("RefreshFields").ToString.Contains(fieldname) Then res = True
-    '        Next
-
-    '    Catch ex As Exception
-    '        res = False
-    '    End Try
-
-    '    Return res
-    'End Function
 
 End Class

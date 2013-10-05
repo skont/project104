@@ -31,14 +31,12 @@ Public Class clsApp
 
 
         With Constants
-            .applicationName = "MediaFrame"
+            .applicationName = "My Application"
             .MainFormCaption = ""
 
             .RegisteredTo = ""
             .UpdateFTP = ""
             .UpdateURL = ""
-            .FocusedForeColor = "lightblue"
-            .FocusedBackColor = "white"
 
             .RenameField = "RenameField"
             .SaveToXML = "SaveLayout (to xml)"
@@ -110,6 +108,9 @@ Public Class clsApp
         Public Property UpdateURL As String
         Public Property FocusedForeColor As String
         Public Property FocusedBackColor As String
+        Public Property FocusedFontFamily As String
+        Public Property FocusedFontSize As Integer
+        Public Property FocusedFontStyle As String
 
 
         Public Property RenameField As String

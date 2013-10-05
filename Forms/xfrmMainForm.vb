@@ -1,6 +1,4 @@
-﻿Imports System.Data.SqlClient
-
-Public Class xfrmMainForm
+﻿Public Class xfrmMainForm
 
     Public Sub New()
 
@@ -19,8 +17,6 @@ Public Class xfrmMainForm
 
         OpenHideInitReport()
 
-
-
         With App.Objects
             .myMainForm = Me
             .myMainNavBar = Me.NavBarControl1
@@ -36,7 +32,6 @@ Public Class xfrmMainForm
 
         Dim mainlcTag As New clsTagExtender() With {.SenderMaster = Name}
 
-
         Icon = My.Resources.mlX
         Text = App.Constants.MainFormCaption 'My.Settings.Caption & " | " & My.Settings.Company & " - " & My.Settings.Database
 
@@ -45,16 +40,11 @@ Public Class xfrmMainForm
             PanelControl1.Hide()
         End If
 
-
         CreateNavMenuFromDb()
         CreateTopMenuFromDb()
 
-
-
         WindowState = FormWindowState.Maximized
         KeyPreview = True
-
-
 
     End Sub
 
@@ -117,13 +107,9 @@ Public Class xfrmMainForm
     End Sub
 
 
-
     Private Sub XtraTabbedMdiManager1_SelectedPageChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles XtraTabbedMdiManager1.SelectedPageChanged
         Try
-
             App.Objects.curMainControl = XtraTabbedMdiManager1.SelectedPage.MdiChild
-
-
         Catch ex As Exception
 
         End Try
