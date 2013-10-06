@@ -475,10 +475,12 @@ Partial Public Class xcntlMainControl
         'Creates Focused Row color based on init values (in up1init)
         Dim view As GridView = sender
         If e.RowHandle = view.FocusedRowHandle Then
-            e.Appearance.ForeColor = getColor(App.Constants.FocusedForeColor)
-            e.Appearance.BackColor = getColor(App.Constants.FocusedBackColor)
-            e.Appearance.Font = New Font(App.Constants.FocusedFontFamily, App.Constants.FocusedFontSize, getFontStyle(App.Constants.FocusedFontStyle))
 
+            If App.Constants.FocusedForeColor <> "" Then e.Appearance.ForeColor = getColor(App.Constants.FocusedForeColor)
+            If App.Constants.FocusedBackColor <> "" Then e.Appearance.BackColor = getColor(App.Constants.FocusedBackColor)
+            If App.Constants.FocusedFontFamily <> "" Then e.Appearance.Font = New Font(App.Constants.FocusedFontFamily, e.Appearance.Font.Size)
+            If App.Constants.FocusedFontSize <> 0 Then e.Appearance.Font = New Font(e.Appearance.Font.FontFamily, App.Constants.FocusedFontSize)
+            If App.Constants.FocusedFontStyle <> "" Then e.Appearance.Font = New Font(e.Appearance.Font.FontFamily, e.Appearance.Font.Size, getFontStyle(App.Constants.FocusedFontStyle))
         End If
 
 
@@ -498,9 +500,11 @@ Partial Public Class xcntlMainControl
         Dim cellstyles = Split(cs(1), ";")
 
         If e.Column.FieldName = cs(0) Then
-            e.Appearance.ForeColor = getColor(cellstyles(0).ToLower)
-            e.Appearance.BackColor = getColor(cellstyles(1).ToLower)
-            e.Appearance.Font = New Font(cellstyles(2).ToLower, CInt(cellstyles(3)), getFontStyle(cellstyles(4).ToLower))
+            If cellstyles(0) <> "" Then e.Appearance.ForeColor = getColor(cellstyles(0).ToLower)
+            If cellstyles(1) <> "" Then e.Appearance.BackColor = getColor(cellstyles(1).ToLower)
+            If cellstyles(2) <> "" Then e.Appearance.Font = New Font(cellstyles(2).ToLower, e.Appearance.Font.Size)
+            If cellstyles(3) <> "" Then e.Appearance.Font = New Font(e.Appearance.Font.FontFamily, CInt(cellstyles(3)))
+            If cellstyles(4) <> "" Then e.Appearance.Font = New Font(e.Appearance.Font.FontFamily, e.Appearance.Font.Size, getFontStyle(cellstyles(4).ToLower))
 
         End If
 
@@ -512,20 +516,20 @@ Partial Public Class xcntlMainControl
 
         ' Creates rowcolor based on rowcolor values in table
         Dim View As GridView = sender
-        Dim rowcolor As String
 
-        If View.Columns("RowColor") Is Nothing OrElse View.GetRowCellDisplayText(e.RowHandle, View.Columns("RowColor")) = "" Then
-            rowcolor = "black;white;calibri;11;regular"
-        Else
-            rowcolor = View.GetRowCellDisplayText(e.RowHandle, View.Columns("RowColor"))
-        End If
+        If View.Columns("RowColor") Is Nothing OrElse View.GetRowCellDisplayText(e.RowHandle, View.Columns("RowColor")) = "" Then Return
+
+        Dim rowcolor As String = View.GetRowCellDisplayText(e.RowHandle, View.Columns("RowColor"))
+
 
         If (e.RowHandle >= 0) AndAlso (e.RowHandle <> GridControl.NewItemRowHandle) Then
             Dim colour As String() = Split(rowcolor, ";")
 
-            e.Appearance.ForeColor = getColor(colour(0).ToLower)
-            e.Appearance.BackColor = getColor(colour(1).ToLower)
-            e.Appearance.Font = New Font(colour(2).ToLower, CInt(colour(3)), getFontStyle(colour(4).ToLower))
+            If colour(0) <> "" Then e.Appearance.ForeColor = getColor(colour(0).ToLower)
+            If colour(1) <> "" Then e.Appearance.BackColor = getColor(colour(1).ToLower)
+            If colour(2) <> "" Then e.Appearance.Font = New Font(colour(2).ToLower, e.Appearance.Font.Size)
+            If colour(3) <> "" Then e.Appearance.Font = New Font(e.Appearance.Font.FontFamily, CInt(colour(3)))
+            If colour(4) <> "" Then e.Appearance.Font = New Font(e.Appearance.Font.FontFamily, e.Appearance.Font.Size, getFontStyle(colour(4).ToLower))
         End If
 
 

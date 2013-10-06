@@ -134,12 +134,6 @@ Public Class xfrmLogin
                 dbcon.Open()
                 dbcon.Close()
 
-
-                'Using sysdbcon As New SqlClient.SqlConnection(GetSysCon)
-                '    sysdbcon.Open()
-                '    sysdbcon.Close()
-                'End Using
-
                 ChangeInitValues(GetCon)
             End Using
                 Return True
