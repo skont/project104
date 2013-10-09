@@ -1,6 +1,5 @@
 ﻿Imports CrystalDecisions.CrystalReports.Engine
 Imports System.Data.SqlClient
-Imports DevExpress.XtraTab
 
 Module modInvoicePrint
 

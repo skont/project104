@@ -1,7 +1,5 @@
 ﻿Imports DevExpress.XtraEditors
 Imports System.Data.SqlClient
-Imports DevExpress.XtraGrid.Views.Grid
-Imports DevExpress.XtraEditors.Repository
 Imports System.Globalization
 
 Partial Public Class xcntlMainControl

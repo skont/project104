@@ -1,5 +1,4 @@
-﻿
-Imports System.Data.SqlClient
+﻿Imports System.Data.SqlClient
 Imports DevExpress.XtraBars
 Imports DevExpress.XtraLayout
 Imports DevExpress.XtraNavBar

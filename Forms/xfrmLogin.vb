@@ -1,5 +1,4 @@
 Imports System.IO
-Imports System.Net
 Imports System.Data.SqlClient
 
 Public Class xfrmLogin
@@ -161,18 +160,36 @@ Public Class xfrmLogin
             .UpdateURL = initds.Tables("InitialValues").Rows(0)("f3")
 
             'Grid Focused Row
-            Dim init As String = "black;white;calibri;11;bold"
-            If initds.Tables("InitialValues").Rows(0)("f4") <> "" Then
-                init = initds.Tables("InitialValues").Rows(0)("f4")
-            End If
+            'Dim init As String = "black;white;calibri;11;bold"
+            'If initds.Tables("InitialValues").Rows(0)("f4") <> "" Then
+            Dim init As String = initds.Tables("InitialValues").Rows(0)("f4")
+            'End If
 
-            Dim colors As String() = Split(init, ";")
+            Dim colours As String() = Split(init, ";")
 
-            .FocusedForeColor = colors(0)
-            .FocusedBackColor = colors(1)
-            .FocusedFontFamily = colors(2)
-            .FocusedFontSize = CInt(colors(3))
-            .FocusedFontStyle = colors(4)
+            Select Case colours.Length
+                Case 0
+                Case 1
+                    .FocusedForeColor = colours(0)
+                Case 2
+                    .FocusedForeColor = colours(0)
+                    .FocusedBackColor = colours(1)
+                Case 3
+                    .FocusedForeColor = colours(0)
+                    .FocusedBackColor = colours(1)
+                    .FocusedFontFamily = colours(2)
+                Case 4
+                    .FocusedForeColor = colours(0)
+                    .FocusedBackColor = colours(1)
+                    .FocusedFontFamily = colours(2)
+                    If colours(3) <> "" Then .FocusedFontSize = CInt(colours(3))
+                Case 5
+                    .FocusedForeColor = colours(0)
+                    .FocusedBackColor = colours(1)
+                    .FocusedFontFamily = colours(2)
+                    If colours(3) <> "" Then .FocusedFontSize = CInt(colours(3))
+                    .FocusedFontStyle = colours(4)
+            End Select
 
         End With
 

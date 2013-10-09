@@ -1,9 +1,4 @@
-﻿Imports DevExpress.XtraEditors
-Imports DevExpress.XtraGrid.Views.Grid
-Imports DevExpress.XtraGrid
-Imports DevExpress.XtraTab
-
-Module modNewSubsFormsManipulation
+﻿Module modNewSubsFormsManipulation
     Public Sub Openfrm(ByVal ParentGuid As Guid, ByVal r As DataRow)
         Select Case r("f1").tolower
             Case "tab"

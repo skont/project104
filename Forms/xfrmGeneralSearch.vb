@@ -3,6 +3,7 @@ Imports System.Data.SqlClient
 Imports DevExpress.Xpo
 Imports DevExpress.Xpo.Metadata
 Imports DevExpress.XtraGrid
+Imports SearchView
 
 Public Class xfrmGeneralSearch
 

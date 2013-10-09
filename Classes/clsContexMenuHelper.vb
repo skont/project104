@@ -5,7 +5,6 @@ Imports DevExpress.XtraGrid.Views.Grid.ViewInfo
 Imports DevExpress.Utils
 Imports DevExpress.Utils.Menu
 Imports DevExpress.XtraPivotGrid
-Imports DevExpress.XtraGrid
 
 Public Class clsContexMenuHelper
 

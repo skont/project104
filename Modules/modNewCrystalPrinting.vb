@@ -1,6 +1,5 @@
 ﻿Imports CrystalDecisions.CrystalReports.Engine
 Imports CrystalDecisions.Shared
-Imports DevExpress.XtraTab
 
 Module modNewCrystalPrinting
 

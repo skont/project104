@@ -2,14 +2,8 @@ Imports DevExpress.Skins
 Imports DevExpress.XtraEditors
 Imports System.IO
 Imports System.Data.SqlClient
-
 Imports System.Deployment.Application
 Imports System.Net
-
-Imports Microsoft.SqlServer.Management.Smo
-Imports Microsoft.SqlServer.Management.Common
-Imports System.Threading
-
 Imports System.Text.RegularExpressions
 
 Public Class xfrmOptions

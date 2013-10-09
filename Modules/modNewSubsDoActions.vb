@@ -2,10 +2,8 @@
 Imports DevExpress.XtraGrid.Views.BandedGrid
 Imports DevExpress.XtraEditors.Controls
 Imports DevExpress.XtraGrid.Views.Base
-Imports System.ComponentModel
 Imports DevExpress.XtraGrid
 Imports DevExpress.XtraEditors.DXErrorProvider
-Imports System.Threading
 Imports DevExpress.XtraGrid.Columns
 Imports DevExpress.XtraLayout
 

@@ -1,5 +1,4 @@
-﻿Imports System.Data.SqlClient
-Imports DevExpress.XtraEditors
+﻿Imports DevExpress.XtraEditors
 
 
 Module modMsgUP

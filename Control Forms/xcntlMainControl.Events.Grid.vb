@@ -4,11 +4,7 @@ Imports DevExpress.XtraGrid.Views.Base
 Imports DevExpress.XtraEditors.Repository
 Imports DevExpress.XtraGrid
 Imports DevExpress.XtraEditors
-Imports DevExpress.XtraPivotGrid
 Imports DevExpress.XtraGrid.Views.Grid.ViewInfo
-Imports System.Runtime.Serialization
-Imports System.Globalization
-Imports DevExpress.Utils.Menu
 Imports DevExpress.XtraVerticalGrid.VGridControl
 Imports DevExpress.XtraVerticalGrid
 Imports DevExpress
@@ -500,11 +496,33 @@ Partial Public Class xcntlMainControl
         Dim cellstyles = Split(cs(1), ";")
 
         If e.Column.FieldName = cs(0) Then
-            If cellstyles(0) <> "" Then e.Appearance.ForeColor = getColor(cellstyles(0).ToLower)
-            If cellstyles(1) <> "" Then e.Appearance.BackColor = getColor(cellstyles(1).ToLower)
-            If cellstyles(2) <> "" Then e.Appearance.Font = New Font(cellstyles(2).ToLower, e.Appearance.Font.Size)
-            If cellstyles(3) <> "" Then e.Appearance.Font = New Font(e.Appearance.Font.FontFamily, CInt(cellstyles(3)))
-            If cellstyles(4) <> "" Then e.Appearance.Font = New Font(e.Appearance.Font.FontFamily, e.Appearance.Font.Size, getFontStyle(cellstyles(4).ToLower))
+
+
+            Select Case cellstyles.Length
+                Case 0
+
+                Case 1
+                    e.Appearance.ForeColor = getColor(cellstyles(0).ToLower)
+                Case 2
+                    e.Appearance.ForeColor = getColor(cellstyles(0).ToLower)
+                    e.Appearance.BackColor = getColor(cellstyles(1).ToLower)
+                Case 3
+                    e.Appearance.ForeColor = getColor(cellstyles(0).ToLower)
+                    e.Appearance.BackColor = getColor(cellstyles(1).ToLower)
+                    e.Appearance.Font = New Font(cellstyles(2).ToLower, e.Appearance.Font.Size)
+                Case 4
+                    e.Appearance.ForeColor = getColor(cellstyles(0).ToLower)
+                    e.Appearance.BackColor = getColor(cellstyles(1).ToLower)
+                    e.Appearance.Font = New Font(cellstyles(2).ToLower, e.Appearance.Font.Size)
+                    e.Appearance.Font = New Font(e.Appearance.Font.FontFamily, CInt(cellstyles(3)))
+                Case 5
+                    e.Appearance.ForeColor = getColor(cellstyles(0).ToLower)
+                    e.Appearance.BackColor = getColor(cellstyles(1).ToLower)
+                    e.Appearance.Font = New Font(cellstyles(2).ToLower, e.Appearance.Font.Size)
+                    e.Appearance.Font = New Font(e.Appearance.Font.FontFamily, CInt(cellstyles(3)))
+                    e.Appearance.Font = New Font(e.Appearance.Font.FontFamily, e.Appearance.Font.Size, getFontStyle(cellstyles(4).ToLower))
+
+            End Select
 
         End If
 
@@ -523,13 +541,37 @@ Partial Public Class xcntlMainControl
 
 
         If (e.RowHandle >= 0) AndAlso (e.RowHandle <> GridControl.NewItemRowHandle) Then
-            Dim colour As String() = Split(rowcolor, ";")
+            Dim cellstyles As String() = Split(rowcolor, ";")
 
-            If colour(0) <> "" Then e.Appearance.ForeColor = getColor(colour(0).ToLower)
-            If colour(1) <> "" Then e.Appearance.BackColor = getColor(colour(1).ToLower)
-            If colour(2) <> "" Then e.Appearance.Font = New Font(colour(2).ToLower, e.Appearance.Font.Size)
-            If colour(3) <> "" Then e.Appearance.Font = New Font(e.Appearance.Font.FontFamily, CInt(colour(3)))
-            If colour(4) <> "" Then e.Appearance.Font = New Font(e.Appearance.Font.FontFamily, e.Appearance.Font.Size, getFontStyle(colour(4).ToLower))
+            Select Case cellstyles.Length
+                Case 0
+
+                Case 1
+                    e.Appearance.ForeColor = getColor(cellstyles(0).ToLower)
+                Case 2
+                    e.Appearance.ForeColor = getColor(cellstyles(0).ToLower)
+                    e.Appearance.BackColor = getColor(cellstyles(1).ToLower)
+                Case 3
+                    e.Appearance.ForeColor = getColor(cellstyles(0).ToLower)
+                    e.Appearance.BackColor = getColor(cellstyles(1).ToLower)
+                    e.Appearance.Font = New Font(cellstyles(2).ToLower, e.Appearance.Font.Size)
+                Case 4
+              
+        e.Appearance.ForeColor = getColor(cellstyles(0).ToLower)
+        e.Appearance.BackColor = getColor(cellstyles(1).ToLower)
+        e.Appearance.Font = New Font(cellstyles(2).ToLower, e.Appearance.Font.Size)
+                    e.Appearance.Font = New Font(e.Appearance.Font.FontFamily, CInt(cellstyles(3)))
+
+                Case 5
+        e.Appearance.ForeColor = getColor(cellstyles(0).ToLower)
+        e.Appearance.BackColor = getColor(cellstyles(1).ToLower)
+        e.Appearance.Font = New Font(cellstyles(2).ToLower, e.Appearance.Font.Size)
+        e.Appearance.Font = New Font(e.Appearance.Font.FontFamily, CInt(cellstyles(3)))
+        e.Appearance.Font = New Font(e.Appearance.Font.FontFamily, e.Appearance.Font.Size, getFontStyle(cellstyles(4).ToLower))
+
+            End Select
+
+
         End If
 
 

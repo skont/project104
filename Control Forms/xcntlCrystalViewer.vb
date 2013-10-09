@@ -1,5 +1,3 @@
-Imports CrystalDecisions.CrystalReports.Engine
-Imports CrystalDecisions.Shared
 Imports DevExpress.XtraEditors
 
 Public Class xcntlCrystalViewer

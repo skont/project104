@@ -1,5 +1,4 @@
-﻿Imports DevExpress.XtraTab
-Imports DevExpress.XtraNavBar
+﻿Imports DevExpress.XtraNavBar
 Imports DevExpress.XtraGrid
 Imports DevExpress.XtraEditors.DXErrorProvider
 Imports DevExpress.XtraBars.Docking
@@ -9,7 +8,6 @@ Imports DevExpress.XtraTabbedMdi
 Imports DevExpress.XtraBars.Controls
 Imports DevExpress.Skins
 Imports DevExpress.LookAndFeel
-Imports System.Data.SqlClient
 
 Public Class clsApp
     Public UserInfo As appUserInfo
@@ -37,6 +35,12 @@ Public Class clsApp
             .RegisteredTo = ""
             .UpdateFTP = ""
             .UpdateURL = ""
+
+            .FocusedForeColor = ""
+            .FocusedBackColor = ""
+            .FocusedFontFamily = ""
+            .FocusedFontSize = 0
+            .FocusedFontStyle = ""
 
             .RenameField = "RenameField"
             .SaveToXML = "SaveLayout (to xml)"
