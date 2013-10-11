@@ -54,7 +54,7 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="Caption" Type="System.String" Scope="User">
-      <Value Profile="(Default)">MediaFrame</Value>
+      <Value Profile="(Default)">Excess</Value>
     </Setting>
     <Setting Name="ShowCaptionMainForm" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>

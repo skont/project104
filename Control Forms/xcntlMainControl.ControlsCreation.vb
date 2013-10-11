@@ -14,7 +14,6 @@ Imports DevExpress.XtraPivotGrid
 Imports DevExpress.XtraGrid
 Imports DevExpress.Data.PivotGrid
 Imports DevExpress.XtraVerticalGrid
-Imports SearchView
 
 
 Partial Public Class xcntlMainControl
