@@ -450,12 +450,12 @@ Partial Public Class xcntlMainControl
 
                         item.Control = crViewer
 
-                    Case "axcrystalviewer"
-                        ' KANONIKA prepei na ftiaxtei oli i forma (to label, o crystalviewer klp)
-                        'axcrViewer = New xcntlAxCrystalViewer
+                        'Case "axcrystalviewer"
+                        '    ' KANONIKA prepei na ftiaxtei oli i forma (to label, o crystalviewer klp)
+                        '    'axcrViewer = New xcntlAxCrystalViewer
 
-                        axcrViewer = New xcntlAxCrystalViewer(crRepPath, crRepParams)
-                        item.Control = axcrViewer
+                        '    axcrViewer = New xcntlAxCrystalViewer(crRepPath, crRepParams)
+                        '    item.Control = axcrViewer
 
 
                     Case "filesmanipulation"

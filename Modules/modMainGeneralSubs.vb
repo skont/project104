@@ -33,29 +33,29 @@ Module modMainGeneralSubs
 
 
 
-    Public Sub RegisterDlls()
-        Cursor.Current = Cursors.WaitCursor
+    'Public Sub RegisterDlls()
+    '    Cursor.Current = Cursors.WaitCursor
 
-        Dim dllpath As String = Application.StartupPath & "\dll\"
+    '    Dim dllpath As String = Application.StartupPath & "\dll\"
 
-        Dim spath(2) As String
-        spath(0) = dllpath + "crviewer.dll"
-        spath(1) = dllpath + "craxddrt.dll"
+    '    Dim spath(2) As String
+    '    spath(0) = dllpath + "crviewer.dll"
+    '    spath(1) = dllpath + "craxddrt.dll"
 
 
 
-        'Register the DLLs.
-        For i = 0 To 1
-            Try
+    '    'Register the DLLs.
+    '    For i = 0 To 1
+    '        Try
 
-                Process.Start("regsvr32.exe ", String.Format("""{0}""", spath(i)))
-            Catch ex As Exception
-                WriteLogEntry(String.Format("The following DLL did not register.{0}{1}{0} Reason:{0}{2}", vbLf, spath(i), ex.Message))
-            End Try
+    '            Process.Start("regsvr32.exe ", String.Format("""{0}""", spath(i)))
+    '        Catch ex As Exception
+    '            WriteLogEntry(String.Format("The following DLL did not register.{0}{1}{0} Reason:{0}{2}", vbLf, spath(i), ex.Message))
+    '        End Try
 
-        Next
+    '    Next
 
-    End Sub
+    'End Sub
 
 
     Public Function getColor(ByVal name As String) As Color

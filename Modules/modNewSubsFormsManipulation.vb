@@ -97,9 +97,9 @@
     Public Sub OpenHideInitReport()
 
         Try
-            Dim a As New xfrmAxCrysytalViewer(GetAppIniReportPath() & "dummy.rpt", "")
-            a.Show()
-            a.Hide()
+            'Dim a As New xfrmAxCrysytalViewer(GetAppIniReportPath() & "dummy.rpt", "")
+            ' a.Show()
+            ' a.Hide()
         Catch ex As Exception
             WriteLogEntry("Dummy Report Error: " & ex.Message)
         End Try

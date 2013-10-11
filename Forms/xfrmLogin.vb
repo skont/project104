@@ -247,11 +247,11 @@ Public Class xfrmLogin
             Hide()
 
 
-            If My.Settings.RegisterDlls = False Then
-                RegisterDlls()
-                'InstallPrerequisites()
-                My.Settings.RegisterDlls = True
-            End If
+            'If My.Settings.RegisterDlls = False Then
+            'RegisterDlls()
+            'InstallPrerequisites()
+            'My.Settings.RegisterDlls = True
+            'End If
 
             Dim main As xfrmMainForm
             main = New xfrmMainForm

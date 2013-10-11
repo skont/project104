@@ -29,7 +29,7 @@ Public Class xcntlMainControl
     Dim WithEvents cmbEd As ComboBoxEdit
     Dim WithEvents pvg As PivotGridControl
     Dim WithEvents crViewer As xcntlCrystalViewer
-    Dim WithEvents axcrViewer As xcntlAxCrystalViewer
+    'Dim WithEvents axcrViewer As xcntlAxCrystalViewer
     Dim WithEvents filesManip As xcntlFiles
     Dim WithEvents vgridC As VGridControl
 

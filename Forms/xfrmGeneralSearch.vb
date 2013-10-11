@@ -125,6 +125,9 @@ Public Class xfrmGeneralSearch
         End If
 
     End Sub
+    Public Sub New()
+        InitializeComponent()
+    End Sub
 
 
 
