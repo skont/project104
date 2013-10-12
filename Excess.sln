@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Excess", "Excess.vbproj", "{2B2C1749-4A78-4D0B-9197-9B14FA55C23E}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "ExcessSetup", "..\ExcessSetup\ExcessSetup.vdproj", "{B2FF1E89-AC03-47EB-B56E-7FC07F00B922}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CD_ROM|Any CPU = CD_ROM|Any CPU
@@ -44,6 +46,21 @@ Global
 		{2B2C1749-4A78-4D0B-9197-9B14FA55C23E}.SingleImage|x64.ActiveCfg = Release|x86
 		{2B2C1749-4A78-4D0B-9197-9B14FA55C23E}.SingleImage|x86.ActiveCfg = Release|x86
 		{2B2C1749-4A78-4D0B-9197-9B14FA55C23E}.SingleImage|x86.Build.0 = Release|x86
+		{B2FF1E89-AC03-47EB-B56E-7FC07F00B922}.CD_ROM|Any CPU.ActiveCfg = Release
+		{B2FF1E89-AC03-47EB-B56E-7FC07F00B922}.CD_ROM|x64.ActiveCfg = Release
+		{B2FF1E89-AC03-47EB-B56E-7FC07F00B922}.CD_ROM|x86.ActiveCfg = Release
+		{B2FF1E89-AC03-47EB-B56E-7FC07F00B922}.Debug|Any CPU.ActiveCfg = Debug
+		{B2FF1E89-AC03-47EB-B56E-7FC07F00B922}.Debug|x64.ActiveCfg = Debug
+		{B2FF1E89-AC03-47EB-B56E-7FC07F00B922}.Debug|x86.ActiveCfg = Debug
+		{B2FF1E89-AC03-47EB-B56E-7FC07F00B922}.DVD-5|Any CPU.ActiveCfg = Debug
+		{B2FF1E89-AC03-47EB-B56E-7FC07F00B922}.DVD-5|x64.ActiveCfg = Debug
+		{B2FF1E89-AC03-47EB-B56E-7FC07F00B922}.DVD-5|x86.ActiveCfg = Debug
+		{B2FF1E89-AC03-47EB-B56E-7FC07F00B922}.Release|Any CPU.ActiveCfg = Release
+		{B2FF1E89-AC03-47EB-B56E-7FC07F00B922}.Release|x64.ActiveCfg = Release
+		{B2FF1E89-AC03-47EB-B56E-7FC07F00B922}.Release|x86.ActiveCfg = Release
+		{B2FF1E89-AC03-47EB-B56E-7FC07F00B922}.SingleImage|Any CPU.ActiveCfg = Release
+		{B2FF1E89-AC03-47EB-B56E-7FC07F00B922}.SingleImage|x64.ActiveCfg = Release
+		{B2FF1E89-AC03-47EB-B56E-7FC07F00B922}.SingleImage|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

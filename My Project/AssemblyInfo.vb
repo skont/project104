@@ -8,11 +8,11 @@ Imports System.Runtime.InteropServices
 
 ' Review the values of the assembly attributes
 
-<Assembly: AssemblyTitle("MediaFrame")> 
+<Assembly: AssemblyTitle("Excess")> 
 <Assembly: AssemblyDescription("")> 
-<Assembly: AssemblyCompany("Medialab Ltd")> 
-<Assembly: AssemblyProduct("MediaFrame")> 
-<Assembly: AssemblyCopyright("Copyright ©  2009")> 
+<Assembly: AssemblyCompany("Exsess Team")> 
+<Assembly: AssemblyProduct("Excess")> 
+<Assembly: AssemblyCopyright("Copyright ©  2013")> 
 <Assembly: AssemblyTrademark("")> 
 
 <Assembly: ComVisible(False)>
