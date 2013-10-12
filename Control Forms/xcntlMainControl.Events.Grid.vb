@@ -470,6 +470,8 @@ Partial Public Class xcntlMainControl
 
         'Creates Focused Row color based on init values (in up1init)
         Dim view As GridView = sender
+        Dim fontsize As Integer = 0
+
         If e.RowHandle = view.FocusedRowHandle Then
 
             If App.Constants.FocusedForeColor <> "" Then e.Appearance.ForeColor = getColor(App.Constants.FocusedForeColor)
@@ -489,42 +491,51 @@ Partial Public Class xcntlMainControl
         Else
             styling = ""
         End If
-        If styling = "" Then Return
+        If styling = "" Then Exit Sub
 
         Dim cs As String() = Split(styling, "|")
 
-        Dim cellstyles = Split(cs(1), ";")
+        For i = 0 To cs.Length - 1
+            Dim cellstyles = Split(cs(i), ";")
 
-        If e.Column.FieldName = cs(0) Then
+            If e.Column.FieldName = cellstyles(0) Then
 
 
-            Select Case cellstyles.Length
-                Case 0
+                Select Case cellstyles.Length - 1
+                    Case 0
 
-                Case 1
-                    e.Appearance.ForeColor = getColor(cellstyles(0).ToLower)
-                Case 2
-                    e.Appearance.ForeColor = getColor(cellstyles(0).ToLower)
-                    e.Appearance.BackColor = getColor(cellstyles(1).ToLower)
-                Case 3
-                    e.Appearance.ForeColor = getColor(cellstyles(0).ToLower)
-                    e.Appearance.BackColor = getColor(cellstyles(1).ToLower)
-                    e.Appearance.Font = New Font(cellstyles(2).ToLower, e.Appearance.Font.Size)
-                Case 4
-                    e.Appearance.ForeColor = getColor(cellstyles(0).ToLower)
-                    e.Appearance.BackColor = getColor(cellstyles(1).ToLower)
-                    e.Appearance.Font = New Font(cellstyles(2).ToLower, e.Appearance.Font.Size)
-                    e.Appearance.Font = New Font(e.Appearance.Font.FontFamily, CInt(cellstyles(3)))
-                Case 5
-                    e.Appearance.ForeColor = getColor(cellstyles(0).ToLower)
-                    e.Appearance.BackColor = getColor(cellstyles(1).ToLower)
-                    e.Appearance.Font = New Font(cellstyles(2).ToLower, e.Appearance.Font.Size)
-                    e.Appearance.Font = New Font(e.Appearance.Font.FontFamily, CInt(cellstyles(3)))
-                    e.Appearance.Font = New Font(e.Appearance.Font.FontFamily, e.Appearance.Font.Size, getFontStyle(cellstyles(4).ToLower))
+                    Case 1
+                        e.Appearance.ForeColor = getColor(cellstyles(1).ToLower)
+                    Case 2
+                        e.Appearance.ForeColor = getColor(cellstyles(1).ToLower)
+                        e.Appearance.BackColor = getColor(cellstyles(2).ToLower)
+                    Case 3
+                        e.Appearance.ForeColor = getColor(cellstyles(1).ToLower)
+                        e.Appearance.BackColor = getColor(cellstyles(2).ToLower)
+                        e.Appearance.Font = New Font(cellstyles(3).ToLower, e.Appearance.Font.Size)
+                    Case 4
+                        e.Appearance.ForeColor = getColor(cellstyles(1).ToLower)
+                        e.Appearance.BackColor = getColor(cellstyles(2).ToLower)
+                        e.Appearance.Font = New Font(cellstyles(3).ToLower, e.Appearance.Font.Size)
+                        If cellstyles(4) = "" Then
+                            fontsize = e.Appearance.Font.Size
+                            e.Appearance.Font = New Font(e.Appearance.Font.FontFamily, fontsize)
+                        End If
+                    Case 5
+                        e.Appearance.ForeColor = getColor(cellstyles(1).ToLower)
+                        e.Appearance.BackColor = getColor(cellstyles(2).ToLower)
+                        e.Appearance.Font = New Font(cellstyles(3).ToLower, e.Appearance.Font.Size)
+                        If cellstyles(4) = "" Then
+                            fontsize = e.Appearance.Font.Size
+                            e.Appearance.Font = New Font(e.Appearance.Font.FontFamily, fontsize)
+                        End If
+                        e.Appearance.Font = New Font(e.Appearance.Font.FontFamily, e.Appearance.Font.Size, getFontStyle(cellstyles(5).ToLower))
 
-            End Select
+                End Select
 
-        End If
+            End If
+
+        Next
 
 
 
@@ -534,6 +545,7 @@ Partial Public Class xcntlMainControl
 
         ' Creates rowcolor based on rowcolor values in table
         Dim View As GridView = sender
+        Dim fontsize As Integer = 0
 
         If View.Columns("RowColor") Is Nothing OrElse View.GetRowCellDisplayText(e.RowHandle, View.Columns("RowColor")) = "" Then Return
 
@@ -556,18 +568,22 @@ Partial Public Class xcntlMainControl
                     e.Appearance.BackColor = getColor(cellstyles(1).ToLower)
                     e.Appearance.Font = New Font(cellstyles(2).ToLower, e.Appearance.Font.Size)
                 Case 4
-              
-        e.Appearance.ForeColor = getColor(cellstyles(0).ToLower)
-        e.Appearance.BackColor = getColor(cellstyles(1).ToLower)
-        e.Appearance.Font = New Font(cellstyles(2).ToLower, e.Appearance.Font.Size)
-                    e.Appearance.Font = New Font(e.Appearance.Font.FontFamily, CInt(cellstyles(3)))
-
+                    e.Appearance.ForeColor = getColor(cellstyles(0).ToLower)
+                    e.Appearance.BackColor = getColor(cellstyles(1).ToLower)
+                    e.Appearance.Font = New Font(cellstyles(2).ToLower, e.Appearance.Font.Size)
+                    If cellstyles(3) = "" Then
+                        fontsize = e.Appearance.Font.Size
+                        e.Appearance.Font = New Font(e.Appearance.Font.FontFamily, fontsize)
+                    End If
                 Case 5
-        e.Appearance.ForeColor = getColor(cellstyles(0).ToLower)
-        e.Appearance.BackColor = getColor(cellstyles(1).ToLower)
-        e.Appearance.Font = New Font(cellstyles(2).ToLower, e.Appearance.Font.Size)
-        e.Appearance.Font = New Font(e.Appearance.Font.FontFamily, CInt(cellstyles(3)))
-        e.Appearance.Font = New Font(e.Appearance.Font.FontFamily, e.Appearance.Font.Size, getFontStyle(cellstyles(4).ToLower))
+                    e.Appearance.ForeColor = getColor(cellstyles(0).ToLower)
+                    e.Appearance.BackColor = getColor(cellstyles(1).ToLower)
+                    e.Appearance.Font = New Font(cellstyles(2).ToLower, e.Appearance.Font.Size)
+                    If cellstyles(3) = "" Then
+                        fontsize = e.Appearance.Font.Size
+                        e.Appearance.Font = New Font(e.Appearance.Font.FontFamily, fontsize)
+                    End If
+                    e.Appearance.Font = New Font(e.Appearance.Font.FontFamily, e.Appearance.Font.Size, getFontStyle(cellstyles(4).ToLower))
 
             End Select
 

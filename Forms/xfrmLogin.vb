@@ -20,7 +20,7 @@ Public Class xfrmLogin
 
         CenterToScreen()
         Text = String.Format("{0}(RunMode: {1})", My.Settings.Caption, My.Settings.RunMode)
-        Icon = My.Resources.mlX
+        Icon = My.Resources.excess
 
         KeyPreview = True
 

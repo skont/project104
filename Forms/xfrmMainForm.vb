@@ -32,7 +32,7 @@
 
         Dim mainlcTag As New clsTagExtender() With {.SenderMaster = Name}
 
-        Icon = My.Resources.mlX
+        Icon = My.Resources.excess
         Text = App.Constants.MainFormCaption 'My.Settings.Caption & " | " & My.Settings.Company & " - " & My.Settings.Database
 
         LabelControl1.Text = My.Settings.Caption

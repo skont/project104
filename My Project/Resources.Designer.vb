@@ -60,9 +60,9 @@ Namespace My.Resources
             End Set
         End Property
         
-        Friend ReadOnly Property mlX() As System.Drawing.Icon
+        Friend ReadOnly Property excess() As System.Drawing.Icon
             Get
-                Dim obj As Object = ResourceManager.GetObject("mlX", resourceCulture)
+                Dim obj As Object = ResourceManager.GetObject("excess", resourceCulture)
                 Return CType(obj,System.Drawing.Icon)
             End Get
         End Property
