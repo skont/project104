@@ -418,15 +418,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <COMReference Include="CrystalActiveXReportViewerLib105">
-      <Guid>{A30B2DDF-C00F-469F-A23C-D6177608A128}</Guid>
-      <VersionMajor>10</VersionMajor>
-      <VersionMinor>5</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>tlbimp</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
     <COMReference Include="stdole">
       <Guid>{00020430-0000-0000-C000-000000000046}</Guid>
       <VersionMajor>2</VersionMajor>
