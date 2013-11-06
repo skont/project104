@@ -16,20 +16,17 @@ Partial Public Class xcntlMainControl
     '--------- GRIDCONTROL EVENTS
 
 
-    Private Sub gc_GotFocus(sender As Object, e As System.EventArgs)
+    Private Sub gc_GotFocus(sender As Object, e As EventArgs)
 
         App.Objects.prevFocusedControl = App.Objects.curFocusedControl
         App.Objects.curFocusedGridControl = TryCast(sender, GridControl)
         App.Objects.curFocusedView = sender.focusedview
 
-        DoActions(Me.myGuid, sender.name, "GotFocus")
+        DoActions(myGuid, sender.name, "GotFocus")
 
     End Sub
 
     Private Sub gc_ViewRegistered(ByVal sender As Object, ByVal e As ViewOperationEventArgs)
-        Dim view As GridView = e.View
-        Dim parentView As GridView = view.ParentView
-        Dim parentViewRowHandle As Integer = view.SourceRowHandle
 
         If e.View.IsDetailView AndAlso e.View.Name <> "" Then
             GetViewsDetails(e.View)
@@ -37,14 +34,14 @@ Partial Public Class xcntlMainControl
         End If
     End Sub
 
-    Private Sub gc_ProcessGridKey(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs)
+    Private Sub gc_ProcessGridKey(ByVal sender As Object, ByVal e As KeyEventArgs)
 
         Dim grid As GridControl = CType(sender, GridControl)
         Dim gv As GridView = grid.FocusedView
 
         If (gv.IsEditing = True AndAlso (e.KeyCode = Keys.F8)) OrElse (gv.IsEditing = True AndAlso (e.KeyCode = Keys.F9)) OrElse (gv.IsEditing = True AndAlso (e.KeyCode = Keys.F10)) OrElse (gv.IsEditing = True AndAlso (e.KeyCode = Keys.F11)) Then
 
-            DoActions(Me.myGuid, grid.Name & "." & gv.Name & "." & gv.FocusedColumn.FieldName, e.KeyCode.ToString, gv:=gv)
+            DoActions(myGuid, String.Format("{0}.{1}.{2}", grid.Name, gv.Name, gv.FocusedColumn.FieldName), e.KeyCode.ToString, gv:=gv)
         End If
 
         If gv.IsEditing = True AndAlso (e.KeyCode = Keys.Escape) Then
@@ -54,7 +51,7 @@ Partial Public Class xcntlMainControl
         End If
     End Sub
 
-    Private Sub gc_FocusedViewChanged(ByVal sender As Object, ByVal e As DevExpress.XtraGrid.ViewFocusEventArgs)
+    Private Sub gc_FocusedViewChanged(ByVal sender As Object, ByVal e As ViewFocusEventArgs)
 
         Try
 
@@ -84,30 +81,28 @@ Partial Public Class xcntlMainControl
 
         Dim view As GridView = sender
 
-        Dim Editing_Column As String = "val"
-        Dim Value_Column As String = "key"
+        Const Value_Column As String = "key"
 
         If view.Name <> "gv4" Then Return
         'If Me.Name <> "Utils" Then Return
-        If Me.Name.ToLower.Contains("utils") = False Then Return
+        If Name.ToLower.Contains("utils") = False Then Return
 
-        If e.Column.FieldName <> Editing_Column Then Return
+        If e.Column.FieldName <> "val" Then Return
 
 
         If e.RowHandle = GridControl.NewItemRowHandle Then Return
         Dim Value_Column_Value As String = view.GetRowCellValue(e.RowHandle, view.Columns(Value_Column)).ToString()
-        Dim Editing_Cell_Value As String = view.GetRowCellValue(e.RowHandle, view.Columns(Editing_Column)).ToString()
 
         e.RepositoryItem = GetRepItem(Value_Column_Value, e.CellValue)
 
 
     End Sub
 
-    Private Sub gv_GotFocus(ByVal sender As Object, ByVal e As System.EventArgs)
+    'Private Sub gv_GotFocus(ByVal sender As Object, ByVal e As System.EventArgs)
 
-        App.Objects.curFocusedGridControl = sender.gridcontrol
-        App.Objects.curFocusedView = sender
-    End Sub
+    '    App.Objects.curFocusedGridControl = sender.gridcontrol
+    '    App.Objects.curFocusedView = sender
+    'End Sub
 
     Private Sub gv_MouseDown(ByVal sender As Object, ByVal e As MouseEventArgs)
 
@@ -233,7 +228,7 @@ Partial Public Class xcntlMainControl
         Dim c As GridControl = v.GridControl
 
         If e.KeyData = Keys.Delete AndAlso sender.State = GridState.Normal AndAlso myViewMode.ToLower = "edit" Then
-            DoActions(Me.myGuid, c.Name & "." & v.Name, "deleterow", gv:=v)
+            DoActions(Me.myGuid, String.Format("{0}.{1}", c.Name, v.Name), "deleterow", gv:=v)
 
 
             '    ' TO XREIAOMASTE KAI DOULEYEI PREPEI NA VRW TIS SYNTHIKES
@@ -466,11 +461,10 @@ Partial Public Class xcntlMainControl
 
     End Sub
 
-    Private Sub gv_RowCellStyle(ByVal sender As Object, ByVal e As DevExpress.XtraGrid.Views.Grid.RowCellStyleEventArgs)
+    Private Sub gv_RowCellStyle(ByVal sender As Object, ByVal e As RowCellStyleEventArgs)
 
         'Creates Focused Row color based on init values (in up1init)
         Dim view As GridView = sender
-        Dim fontsize As Integer = 0
 
         If e.RowHandle = view.FocusedRowHandle Then
 
@@ -499,38 +493,43 @@ Partial Public Class xcntlMainControl
             Dim cellstyles = Split(cs(i), ";")
 
             If e.Column.FieldName = cellstyles(0) Then
-
+             
 
                 Select Case cellstyles.Length - 1
                     Case 0
 
                     Case 1
-                        e.Appearance.ForeColor = getColor(cellstyles(1).ToLower)
+                        e.Appearance.ForeColor = If(cellstyles(1) = "", e.Appearance.ForeColor, getColor(cellstyles(1).ToLower))
                     Case 2
-                        e.Appearance.ForeColor = getColor(cellstyles(1).ToLower)
-                        e.Appearance.BackColor = getColor(cellstyles(2).ToLower)
+                        e.Appearance.ForeColor = If(cellstyles(1) = "", e.Appearance.ForeColor, getColor(cellstyles(1).ToLower))
+                        e.Appearance.BackColor = If(cellstyles(2) = "", e.Appearance.BackColor, getColor(cellstyles(2).ToLower))
                     Case 3
-                        e.Appearance.ForeColor = getColor(cellstyles(1).ToLower)
-                        e.Appearance.BackColor = getColor(cellstyles(2).ToLower)
-                        e.Appearance.Font = New Font(cellstyles(3).ToLower, e.Appearance.Font.Size)
+                        e.Appearance.ForeColor = If(cellstyles(1) = "", e.Appearance.ForeColor, getColor(cellstyles(1).ToLower))
+                        e.Appearance.BackColor = If(cellstyles(2) = "", e.Appearance.BackColor, getColor(cellstyles(2).ToLower))
+                        Dim fontfamily As String = If(cellstyles(3).ToLower = "", e.Appearance.Font.FontFamily.Name, cellstyles(3).ToLower)
+                        e.Appearance.Font = New Font(fontfamily, e.Appearance.Font.Size)
                     Case 4
-                        e.Appearance.ForeColor = getColor(cellstyles(1).ToLower)
-                        e.Appearance.BackColor = getColor(cellstyles(2).ToLower)
-                        e.Appearance.Font = New Font(cellstyles(3).ToLower, e.Appearance.Font.Size)
+                        e.Appearance.ForeColor = If(cellstyles(1) = "", e.Appearance.ForeColor, getColor(cellstyles(1).ToLower))
+                        e.Appearance.BackColor = If(cellstyles(2) = "", e.Appearance.BackColor, getColor(cellstyles(2).ToLower))
+
+                        Dim fontfamily As String = If(cellstyles(3).ToLower = "", e.Appearance.Font.FontFamily.Name, cellstyles(3).ToLower)
+                        e.Appearance.Font = New Font(fontfamily, e.Appearance.Font.Size)
                         If cellstyles(4) = "" Then
-                            fontsize = e.Appearance.Font.Size
-                            e.Appearance.Font = New Font(e.Appearance.Font.FontFamily, fontsize)
+                            e.Appearance.Font = New Font(e.Appearance.Font.FontFamily, e.Appearance.Font.Size)
+                        Else
+                            e.Appearance.Font = New Font(e.Appearance.Font.FontFamily, CInt(cellstyles(4)))
                         End If
                     Case 5
-                        e.Appearance.ForeColor = getColor(cellstyles(1).ToLower)
-                        e.Appearance.BackColor = getColor(cellstyles(2).ToLower)
-                        e.Appearance.Font = New Font(cellstyles(3).ToLower, e.Appearance.Font.Size)
+                        e.Appearance.ForeColor = If(cellstyles(1) = "", e.Appearance.ForeColor, getColor(cellstyles(1).ToLower))
+                        e.Appearance.BackColor = If(cellstyles(2) = "", e.Appearance.BackColor, getColor(cellstyles(2).ToLower))
+                        Dim fontfamily As String = If(cellstyles(3).ToLower = "", e.Appearance.Font.FontFamily.Name, cellstyles(3).ToLower)
+                        e.Appearance.Font = New Font(fontfamily, e.Appearance.Font.Size)
                         If cellstyles(4) = "" Then
-                            fontsize = e.Appearance.Font.Size
-                            e.Appearance.Font = New Font(e.Appearance.Font.FontFamily, fontsize)
+                            e.Appearance.Font = New Font(e.Appearance.Font.FontFamily, e.Appearance.Font.Size)
+                        Else
+                            e.Appearance.Font = New Font(e.Appearance.Font.FontFamily, CInt(cellstyles(4)))
                         End If
                         e.Appearance.Font = New Font(e.Appearance.Font.FontFamily, e.Appearance.Font.Size, getFontStyle(cellstyles(5).ToLower))
-
                 End Select
 
             End If
@@ -541,7 +540,7 @@ Partial Public Class xcntlMainControl
 
     End Sub
 
-    Private Sub gv_RowStyle(ByVal sender As Object, ByVal e As DevExpress.XtraGrid.Views.Grid.RowStyleEventArgs)
+    Private Sub gv_RowStyle(ByVal sender As Object, ByVal e As RowStyleEventArgs)
 
         ' Creates rowcolor based on rowcolor values in table
         Dim View As GridView = sender
@@ -553,40 +552,45 @@ Partial Public Class xcntlMainControl
 
 
         If (e.RowHandle >= 0) AndAlso (e.RowHandle <> GridControl.NewItemRowHandle) Then
+
             Dim cellstyles As String() = Split(rowcolor, ";")
+
 
             Select Case cellstyles.Length
                 Case 0
 
                 Case 1
-                    e.Appearance.ForeColor = getColor(cellstyles(0).ToLower)
+                    e.Appearance.ForeColor = If(cellstyles(0) = "", e.Appearance.ForeColor, getColor(cellstyles(0).ToLower))
                 Case 2
-                    e.Appearance.ForeColor = getColor(cellstyles(0).ToLower)
-                    e.Appearance.BackColor = getColor(cellstyles(1).ToLower)
+                    e.Appearance.ForeColor = If(cellstyles(0) = "", e.Appearance.ForeColor, getColor(cellstyles(0).ToLower))
+                    e.Appearance.BackColor = If(cellstyles(1) = "", e.Appearance.BackColor, getColor(cellstyles(1).ToLower))
                 Case 3
-                    e.Appearance.ForeColor = getColor(cellstyles(0).ToLower)
-                    e.Appearance.BackColor = getColor(cellstyles(1).ToLower)
-                    e.Appearance.Font = New Font(cellstyles(2).ToLower, e.Appearance.Font.Size)
+                    e.Appearance.ForeColor = If(cellstyles(0) = "", e.Appearance.ForeColor, getColor(cellstyles(0).ToLower))
+                    e.Appearance.BackColor = If(cellstyles(1) = "", e.Appearance.BackColor, getColor(cellstyles(1).ToLower))
+                    Dim f As String = If(cellstyles(2).ToLower = "", e.Appearance.Font.FontFamily, cellstyles(2).ToLower)
+                    e.Appearance.Font = New Font(f, e.Appearance.Font.Size)
                 Case 4
-                    e.Appearance.ForeColor = getColor(cellstyles(0).ToLower)
-                    e.Appearance.BackColor = getColor(cellstyles(1).ToLower)
-                    e.Appearance.Font = New Font(cellstyles(2).ToLower, e.Appearance.Font.Size)
+                    e.Appearance.ForeColor = If(cellstyles(0) = "", e.Appearance.ForeColor, getColor(cellstyles(0).ToLower))
+                    e.Appearance.BackColor = If(cellstyles(1) = "", e.Appearance.BackColor, getColor(cellstyles(1).ToLower))
+                    Dim fontfamily As String = If(cellstyles(2).ToLower = "", e.Appearance.Font.FontFamily, cellstyles(2).ToLower)
+                    e.Appearance.Font = New Font(fontfamily, e.Appearance.Font.Size)
                     If cellstyles(3) = "" Then
-                        fontsize = e.Appearance.Font.Size
-                        e.Appearance.Font = New Font(e.Appearance.Font.FontFamily, fontsize)
+                        e.Appearance.Font = New Font(e.Appearance.Font.FontFamily, e.Appearance.Font.Size)
+                    Else
+                        e.Appearance.Font = New Font(e.Appearance.Font.FontFamily, CInt(cellstyles(3)))
                     End If
                 Case 5
-                    e.Appearance.ForeColor = getColor(cellstyles(0).ToLower)
-                    e.Appearance.BackColor = getColor(cellstyles(1).ToLower)
-                    e.Appearance.Font = New Font(cellstyles(2).ToLower, e.Appearance.Font.Size)
+                    e.Appearance.ForeColor = If(cellstyles(0) = "", e.Appearance.ForeColor, getColor(cellstyles(0).ToLower))
+                    e.Appearance.BackColor = If(cellstyles(1) = "", e.Appearance.BackColor, getColor(cellstyles(1).ToLower))
+                    Dim fontfamily As String = If(cellstyles(2).ToLower = "", e.Appearance.Font.FontFamily.Name, cellstyles(2).ToLower)
+                    e.Appearance.Font = New Font(fontfamily, e.Appearance.Font.Size)
                     If cellstyles(3) = "" Then
-                        fontsize = e.Appearance.Font.Size
-                        e.Appearance.Font = New Font(e.Appearance.Font.FontFamily, fontsize)
+                        e.Appearance.Font = New Font(e.Appearance.Font.FontFamily, e.Appearance.Font.Size)
+                    Else
+                        e.Appearance.Font = New Font(e.Appearance.Font.FontFamily, CInt(cellstyles(3)))
                     End If
                     e.Appearance.Font = New Font(e.Appearance.Font.FontFamily, e.Appearance.Font.Size, getFontStyle(cellstyles(4).ToLower))
-
             End Select
-
 
         End If
 
@@ -594,7 +598,7 @@ Partial Public Class xcntlMainControl
 
     End Sub
 
-
+   
     Private Sub gv_FilterEditorCreated(ByVal sender As Object, ByVal e As DevExpress.XtraGrid.Views.Base.FilterControlEventArgs)
 
         e.FilterControl.ShowOperandTypeIcon = True

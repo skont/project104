@@ -110,7 +110,7 @@ Module modMainGeneralSubs
             Case "italic"
                 f = Drawing.FontStyle.Italic
             Case "underline"
-                f = Drawing.FontStyle.Italic
+                f = Drawing.FontStyle.Underline
             Case "strikeout"
                 f = Drawing.FontStyle.Strikeout
             Case Else
