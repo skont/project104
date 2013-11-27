@@ -1,7 +1,23 @@
 ﻿Imports System.Xml
 Imports LPrinterTest
+Imports System.IO
 
 Module modMainGeneralSubs
+    Public Function readText(ByVal path As String, ByVal filename As String, Optional ByVal delimeter As String = ";") As String
+        Dim res As String = ""
+        Dim files As String() = Directory.GetFiles(path, filename)
+
+        For i = 0 To files.Length - 1
+            If i = 0 Then
+                res = File.ReadAllText(files(i))
+            Else
+                res = res + delimeter + File.ReadAllText(files(i))
+            End If
+        Next
+
+        Return res
+    End Function
+
     Public Sub DotMatrixPrint(ByVal PrintString As String, Optional ByVal PrinterName As String = "Generic / Text Only")
         Dim pr As New LPrinter
         pr.PrinterName = PrinterName '"Generic / Text Only"

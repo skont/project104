@@ -79,6 +79,8 @@ Module modNewSubs
 
                 End If
 
+            ElseIf dt0.Rows(i)("act").tolower = "getfileconts" Then
+                q(i) = readText(dt0.Rows(i)("f0"), dt0.Rows(i)("f1"), dt0.Rows(i)("f2"))
 
             ElseIf dt0.Rows(i)("act").tolower = "find" Then
 
