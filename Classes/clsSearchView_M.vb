@@ -53,14 +53,11 @@ Public Class clsSearchView_M
     Public Property bit008() As Boolean
     Public Property bit009() As Boolean
 
-    <DevExpress.Xpo.ValueConverter(GetType(Metadata.ImageValueConverter))> _
-    Public Property binary000() As Image
-    <DevExpress.Xpo.ValueConverter(GetType(Metadata.ImageValueConverter))> _
-    Public Property binary001() As Image
+    <DevExpress.Xpo.ValueConverter(GetType(Metadata.ImageValueConverter))> Public Property binary000() As System.Drawing.Image
+    <DevExpress.Xpo.ValueConverter(GetType(Metadata.ImageValueConverter))> Public Property binary001() As System.Drawing.Image
 
 
     Sub New()
-
     End Sub
 
     Public Sub New(ByVal Session As Session)

@@ -74,9 +74,6 @@ Partial Public Class xcntlMainControl
 
 
     '--------- GRIDVIEW EVENTS
-
-    
-
     Private Sub gv_CustomRowCellEdit(ByVal sender As Object, ByVal e As CustomRowCellEditEventArgs)
 
         Dim view As GridView = sender
@@ -493,7 +490,7 @@ Partial Public Class xcntlMainControl
             Dim cellstyles = Split(cs(i), ";")
 
             If e.Column.FieldName = cellstyles(0) Then
-             
+
 
                 Select Case cellstyles.Length - 1
                     Case 0

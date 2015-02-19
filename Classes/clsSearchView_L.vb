@@ -89,16 +89,11 @@ Public Class clsSearchView_L
     Public Property bit018() As Boolean
     Public Property bit019() As Boolean
 
-    <DevExpress.Xpo.ValueConverter(GetType(Metadata.ImageValueConverter))> _
-    Public Property binary000() As Image
-    <DevExpress.Xpo.ValueConverter(GetType(Metadata.ImageValueConverter))> _
-    Public Property binary001() As Image
-    <DevExpress.Xpo.ValueConverter(GetType(Metadata.ImageValueConverter))> _
-    Public Property binary002() As Image
-    <DevExpress.Xpo.ValueConverter(GetType(Metadata.ImageValueConverter))> _
-    Public Property binary003() As Image
-    <DevExpress.Xpo.ValueConverter(GetType(Metadata.ImageValueConverter))> _
-    Public Property binary004() As Image
+    <DevExpress.Xpo.ValueConverter(GetType(ImageValueConverter))> Public Property binary000() As System.Drawing.Image
+    <DevExpress.Xpo.ValueConverter(GetType(ImageValueConverter))> Public Property binary001() As System.Drawing.Image
+    <DevExpress.Xpo.ValueConverter(GetType(ImageValueConverter))> Public Property binary002() As System.Drawing.Image
+    <DevExpress.Xpo.ValueConverter(GetType(ImageValueConverter))> Public Property binary003() As System.Drawing.Image
+    <DevExpress.Xpo.ValueConverter(GetType(ImageValueConverter))> Public Property binary004() As System.Drawing.Image
 
 
     Sub New()

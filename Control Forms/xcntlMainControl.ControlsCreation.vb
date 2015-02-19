@@ -479,7 +479,7 @@ Partial Public Class xcntlMainControl
                         Try
                             picEd.DataBindings.Add(New Binding("Image", DataSt.Tables(0), objColumn, True))
                         Catch ex As Exception
-
+                            WriteLogEntry("Error in image: " & objColumn)
                         End Try
 
                         AddPictureEditHandlers(picEd, EventsToRun)
@@ -927,8 +927,7 @@ Partial Public Class xcntlMainControl
 
 
                 Case "stnd_repimage"
-                    Dim repImage As New RepositoryItemPictureEdit With
-                        {.Name = RepItems(i)("ctrlName"), .NullText = " ", .SizeMode = DevExpress.XtraEditors.Controls.PictureSizeMode.Squeeze}
+                    Dim repImage As New RepositoryItemPictureEdit With {.Name = RepItems(i)("ctrlName"), .NullText = " ", .SizeMode = DevExpress.XtraEditors.Controls.PictureSizeMode.Squeeze}
 
                     g.RepositoryItems.Add(repImage)
 
@@ -1116,7 +1115,7 @@ Partial Public Class xcntlMainControl
                 Dim editorname As String = RepItems(i)("ctrlName")
                 v.Columns(colname).ColumnEditName = editorname
 
-                ' WriteLogEntry(RepItems(i)("TableColumn") & RepItems(i)("ctrlName"))
+                WriteLogEntry(RepItems(i)("TableColumn") & RepItems(i)("ctrlName"))
             Catch ex As Exception
 
                 WriteLogEntry("column editor error" & RepItems(i)("-TableColumn") & RepItems(i)("-ctrlName") & ex.Message)
