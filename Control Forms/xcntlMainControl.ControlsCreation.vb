@@ -219,7 +219,7 @@ Partial Public Class xcntlMainControl
                         Try
                             chkEd.DataBindings.Add(New Binding("Checked", BS(0), DataSt.Tables(0).Columns(objColumn).ColumnName, True))
                         Catch ex As Exception
-
+                            WriteLogEntry("Binding Empty: " & chkEd.Name)
                         End Try
 
                         AddCheckEditHandlers(chkEd, EventsToRun)
@@ -259,7 +259,7 @@ Partial Public Class xcntlMainControl
                         Try
                             dtpEd.DataBindings.Add(New Binding("EditValue", BS(0), DataSt.Tables(0).Columns(objColumn).ColumnName, True))
                         Catch ex As Exception
-
+                            WriteLogEntry("Binding Empty: " & dtpEd.Name)
                         End Try
 
                         AddDateEditHandlers(dtpEd, EventsToRun)
@@ -280,7 +280,7 @@ Partial Public Class xcntlMainControl
                         Try
                             timeEd.DataBindings.Add(New Binding("EditValue", BS(0), DataSt.Tables(0).Columns(objColumn).ColumnName, True))
                         Catch ex As Exception
-
+                            WriteLogEntry("Binding Empty: " & timeEd.Name)
                         End Try
 
                         AddtimeEditHandlers(timeEd, EventsToRun)
@@ -314,7 +314,7 @@ Partial Public Class xcntlMainControl
                         Try
                             cmbEd.DataBindings.Add(New Binding("Text", BS(0), DataSt.Tables(0).Columns(objColumn).ColumnName, True))
                         Catch ex As Exception
-
+                            WriteLogEntry("Binding Empty: " & cmbEd.Name)
                         End Try
 
                         AddCMBHandlers(cmbEd, EventsToRun)
@@ -351,7 +351,7 @@ Partial Public Class xcntlMainControl
                         Try
                             lkeEd.DataBindings.Add(New Binding("EditValue", BS(0), DataSt.Tables(0).Columns(objColumn).ColumnName, True))
                         Catch ex As Exception
-
+                            WriteLogEntry("Binding Empty: " & lkeEd.Name)
                         End Try
 
 
@@ -479,7 +479,7 @@ Partial Public Class xcntlMainControl
                         Try
                             picEd.DataBindings.Add(New Binding("Image", DataSt.Tables(0), objColumn, True))
                         Catch ex As Exception
-                            WriteLogEntry("Error in image: " & objColumn)
+                            WriteLogEntry("Binding Empty: " & picEd.Name)
                         End Try
 
                         AddPictureEditHandlers(picEd, EventsToRun)
@@ -680,8 +680,6 @@ Partial Public Class xcntlMainControl
                     sgv.FocusedRowHandle = 0
                     sgv.SelectRow(sgv.FocusedRowHandle)
 
-
-
                 Case "subbandview"
                     Dim sbv As New AdvBandedGridView(gc) With {.Name = nm, .Tag = xTag}
 
@@ -726,8 +724,6 @@ Partial Public Class xcntlMainControl
         If RSum <> "" Then
             Dim view As GridView = DirectCast(v, GridView)
 
-
-
             GridviewRunningSums(view, RSum)
 
         End If
@@ -736,8 +732,6 @@ Partial Public Class xcntlMainControl
         LoadLayoutFromDb(v)
         Dim hlper As New clsContexMenuHelper(v)
         v.endupdate()
-
-
 
         AddRepItems(v)
 
@@ -756,7 +750,6 @@ Partial Public Class xcntlMainControl
         Dim ExpandGroupRows As Boolean = CBool(ViewDets(0)("ExpandGroupRows"))
         Dim AutoRowHeight As Boolean = CBool(ViewDets(0)("AutoRowHeight"))
 
-
         v.OptionsSelection.EnableAppearanceFocusedRow = False
         v.Appearance.FocusedRow.BackColor = Color.LightGray
         v.Appearance.SelectedRow.BackColor = Color.LightGray
@@ -766,8 +759,6 @@ Partial Public Class xcntlMainControl
         Dim AllowRowSizing As Boolean = CBool(ViewDets(0)("AllowRowSize"))
         v.OptionsCustomization.AllowRowSizing = AllowRowSizing
         v.OptionsView.RowAutoHeight = AutoRowHeight
-
-
 
         If ExpandGroupRows = True Then
             v.ExpandAllGroups()
@@ -785,7 +776,6 @@ Partial Public Class xcntlMainControl
             Next
         End If
 
-
         v.IndicatorWidth = indWidth
         v.OptionsView.ShowIndicator = indShow
 
@@ -798,13 +788,10 @@ Partial Public Class xcntlMainControl
             v.OptionsView.NewItemRowPosition = NewItemRowPosition.None
         End If
 
-
-
         If ShowScroll = True Then
             v.OptionsView.ColumnAutoWidth = False
             v.VertScrollVisibility = Base.ScrollVisibility.Always
         End If
-
 
         v.OptionsView.ShowAutoFilterRow = ShowSearch
         v.OptionsView.ShowFooter = ShowFooter
@@ -815,7 +802,6 @@ Partial Public Class xcntlMainControl
         'tha to protimousa visible if expanded
         v.GroupFooterShowMode = GroupFooterShowMode.VisibleAlways
         v.OptionsMenu.ShowGroupSummaryEditorItem = True
-
 
         v.Appearance.Row.Font = New Font(FontFamily, FontSize, getFontStyle(FontDecoration.ToLower))
 
@@ -828,8 +814,6 @@ Partial Public Class xcntlMainControl
         Dim PivDets() As DataRow = objectDetailsPropertiesTable.Select(criteria)
 
         For c = 0 To UBound(PivDets)
-
-
             Dim fldcount As Integer = Convert.ToInt16(PivDets(c)("Level"))
             Dim nm As String = PivDets(c)("ctrlName")
             Dim typ As String = PivDets(c)("DisplayMember")
@@ -858,8 +842,6 @@ Partial Public Class xcntlMainControl
             Next i
 
         Next c
-
-
     End Sub
 
 
@@ -889,8 +871,6 @@ Partial Public Class xcntlMainControl
                 Case Else
                     gv.Columns(colname).OptionsFilter.FilterPopupMode = DevExpress.XtraGrid.Columns.FilterPopupMode.Default
             End Select
-
-            'gv.Columns(colname).OptionsFilter.AutoFilterCondition = Columns.AutoFilterCondition.Contains
 
             gv.Columns(colname).AppearanceCell.BackColor = getColor(Columndetails(i)("BackColor").tolower)
             gv.Columns(colname).AppearanceCell.ForeColor = getColor(Columndetails(i)("ForeColor").tolower)

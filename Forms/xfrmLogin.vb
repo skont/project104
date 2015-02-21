@@ -203,8 +203,8 @@ Public Class xfrmLogin
         App.UserProperties.CanSaveLayout = False
 
 
-        If File.Exists(String.Format("{0}\{1}", Application.StartupPath, My.Settings.Caption & ".log")) Then
-            File.Delete(String.Format("{0}\{1}", Application.StartupPath, My.Settings.Caption & ".log"))
+        If File.Exists(String.Format("{0}\{1}", Application.StartupPath, My.Settings.Username & "-" & My.Settings.Caption & ".log")) Then
+            File.Delete(String.Format("{0}\{1}", Application.StartupPath, My.Settings.Username & "-" & My.Settings.Caption & ".log"))
         End If
 
         If My.Settings.ServerList.Contains(cmbServer.EditValue) Then

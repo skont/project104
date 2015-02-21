@@ -115,7 +115,7 @@ Module modMenus
                 Message("msgGeneral", "Product Name: " & My.Settings.Caption & vbNewLine & "Product Version: " & GetSoftVersion() & vbNewLine & "Registered to: " & App.Constants.RegisteredTo)
 
             Case "mnuViewLog"
-                Dim f As String = Application.StartupPath & "\" & My.Settings.Caption & ".log"
+                Dim f As String = Application.StartupPath & "\" & My.Settings.Username & "-" & My.Settings.Caption & ".log"
 
                 If IO.File.Exists(f) Then
                     Try
